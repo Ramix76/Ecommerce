@@ -2,18 +2,19 @@ package store.ecommerce.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import store.ecommerce.dto.merchProductDTO.MerchProductRequestDTO;
-import store.ecommerce.dto.merchProductDTO.MerchProductResponseDTO;
-import store.ecommerce.dto.merchProductDTO.MerchProductUpdateDTO;
-import store.ecommerce.dto.mangaBookDTO.MangaBookRequestDTO;
-import store.ecommerce.dto.mangaBookDTO.MangaBookResponseDTO;
-import store.ecommerce.dto.mangaBookDTO.MangaBookUpdateDTO;
-import store.ecommerce.dto.figureDTO.FigureRequestDTO;
-import store.ecommerce.dto.figureDTO.FigureResponseDTO;
-import store.ecommerce.dto.figureDTO.FigureUpdateDTO;
 import store.ecommerce.dto.apparelDTO.ApparelRequestDTO;
 import store.ecommerce.dto.apparelDTO.ApparelResponseDTO;
 import store.ecommerce.dto.apparelDTO.ApparelUpdateDTO;
+import store.ecommerce.dto.figureDTO.FigureRequestDTO;
+import store.ecommerce.dto.figureDTO.FigureResponseDTO;
+import store.ecommerce.dto.figureDTO.FigureUpdateDTO;
+import store.ecommerce.dto.mangaBookDTO.MangaBookRequestDTO;
+import store.ecommerce.dto.mangaBookDTO.MangaBookResponseDTO;
+import store.ecommerce.dto.mangaBookDTO.MangaBookUpdateDTO;
+import store.ecommerce.dto.merchProductDTO.MerchProductRequestDTO;
+import store.ecommerce.dto.merchProductDTO.MerchProductResponseDTO;
+import store.ecommerce.dto.merchProductDTO.MerchProductUpdateDTO;
+import store.ecommerce.exception.BadRequestException;
 import store.ecommerce.exception.ResourceNotFoundException;
 import store.ecommerce.model.*;
 import store.ecommerce.repository.*;
@@ -49,6 +50,8 @@ public class MerchProductServiceImpl implements MerchProductService {
 
     @Override
     public MerchProductResponseDTO create(MerchProductRequestDTO request) {
+        validatePriceAndDescription(request.getPrice(), request.getDescription());
+
         MerchProduct product = new MerchProduct() {};
         product.setName(request.getName());
         product.setPrice(request.getPrice());
@@ -61,8 +64,12 @@ public class MerchProductServiceImpl implements MerchProductService {
     public MerchProductResponseDTO update(Long id, MerchProductUpdateDTO update) {
         MerchProduct product = merchProductRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("MerchProduct not found"));
+
+        validatePriceAndDescription(update.getPrice(), update.getDescription());
+
         if (update.getPrice() != null) product.setPrice(update.getPrice());
         if (update.getDescription() != null) product.setDescription(update.getDescription());
+
         MerchProduct updated = merchProductRepository.save(product);
         return mapMerchProductToResponse(updated);
     }
@@ -101,6 +108,8 @@ public class MerchProductServiceImpl implements MerchProductService {
 
     @Override
     public MangaBookResponseDTO createMangaBook(MangaBookRequestDTO request) {
+        validatePriceAndDescription(request.getPrice(), request.getDescription());
+
         MangaBook book = new MangaBook();
         book.setName(request.getName());
         book.setPrice(request.getPrice());
@@ -116,8 +125,12 @@ public class MerchProductServiceImpl implements MerchProductService {
     public MangaBookResponseDTO updateMangaBook(Long id, MangaBookUpdateDTO update) {
         MangaBook book = mangaBookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("MangaBook not found"));
+
+        validatePriceAndDescription(update.getPrice(), update.getDescription());
+
         if (update.getPrice() != null) book.setPrice(update.getPrice());
         if (update.getDescription() != null) book.setDescription(update.getDescription());
+
         MangaBook updated = mangaBookRepository.save(book);
         return mapMangaBookToResponse(updated);
     }
@@ -159,6 +172,8 @@ public class MerchProductServiceImpl implements MerchProductService {
 
     @Override
     public FigureResponseDTO createFigure(FigureRequestDTO request) {
+        validatePriceAndDescription(request.getPrice(), request.getDescription());
+
         Figure figure = new Figure();
         figure.setName(request.getName());
         figure.setPrice(request.getPrice());
@@ -174,8 +189,12 @@ public class MerchProductServiceImpl implements MerchProductService {
     public FigureResponseDTO updateFigure(Long id, FigureUpdateDTO update) {
         Figure figure = figureRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Figure not found"));
+
+        validatePriceAndDescription(update.getPrice(), update.getDescription());
+
         if (update.getPrice() != null) figure.setPrice(update.getPrice());
         if (update.getDescription() != null) figure.setDescription(update.getDescription());
+
         Figure updated = figureRepository.save(figure);
         return mapFigureToResponse(updated);
     }
@@ -217,6 +236,8 @@ public class MerchProductServiceImpl implements MerchProductService {
 
     @Override
     public ApparelResponseDTO createApparel(ApparelRequestDTO request) {
+        validatePriceAndDescription(request.getPrice(), request.getDescription());
+
         Apparel apparel = new Apparel();
         apparel.setName(request.getName());
         apparel.setPrice(request.getPrice());
@@ -232,8 +253,12 @@ public class MerchProductServiceImpl implements MerchProductService {
     public ApparelResponseDTO updateApparel(Long id, ApparelUpdateDTO update) {
         Apparel apparel = apparelRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Apparel not found"));
+
+        validatePriceAndDescription(update.getPrice(), update.getDescription());
+
         if (update.getPrice() != null) apparel.setPrice(update.getPrice());
         if (update.getDescription() != null) apparel.setDescription(update.getDescription());
+
         Apparel updated = apparelRepository.save(apparel);
         return mapApparelToResponse(updated);
     }
@@ -255,5 +280,15 @@ public class MerchProductServiceImpl implements MerchProductService {
         dto.setColor(apparel.getColor());
         dto.setType(apparel.getType());
         return dto;
+    }
+
+    // ----------------- HELPER -----------------
+    private void validatePriceAndDescription(Number price, String description) {
+        if (price != null && price.doubleValue() <= 0) {
+            throw new BadRequestException("Price must be greater than zero");
+        }
+        if (description != null && description.length() < 10) {
+            throw new BadRequestException("Description must be at least 10 characters long");
+        }
     }
 }

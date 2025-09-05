@@ -1,11 +1,11 @@
-package store.ecommerce.service.impl;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import store.ecommerce.dto.authDTO.AuthRequestDTO;
 import store.ecommerce.dto.authDTO.AuthResponseDTO;
+import store.ecommerce.exception.InvalidCredentialsException;
 import store.ecommerce.exception.ResourceNotFoundException;
+import store.ecommerce.exception.UsernameAlreadyExistsException;
 import store.ecommerce.model.User;
 import store.ecommerce.repository.UserRepository;
 import store.ecommerce.security.JwtTokenProvider;
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new InvalidCredentialsException("Invalid credentials");
         }
 
         String token = jwtTokenProvider.generateToken(user.getUsername());
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public AuthResponseDTO register(AuthRequestDTO request) {
         if (userRepository.existsByUsername(request.getUsername())) {
-            throw new RuntimeException("Username already exists");
+            throw new UsernameAlreadyExistsException("Username already exists");
         }
 
         User user = new User();
