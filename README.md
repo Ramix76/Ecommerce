@@ -64,3 +64,7 @@ ecommerce-app/
       ├── PedidoServiceTest.java
       ├── ProductoServiceTest.java
       └── AuthControllerTest.java            # (nuevo) pruebas de login/seguridad
+
+# Diagrama de Clases E-commerce
+
+![Diagrama de Clases](docs/diagrams/ClassDiagram.png)
