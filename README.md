@@ -8,49 +8,53 @@ ecommerce-app/
  │    ├── EcommerceApplication.java
  │
  │    ├── config/
- │    │     └── DataInitializer.java
+ │    │     └── DataInitializer.java        # Inicializa productos de manga y clientes
  │
  │    ├── controller/
  │    │     ├── AuthController.java
- │    │     ├── ClienteController.java
- │    │     ├── PedidoController.java
- │    │     └── ProductoController.java
+ │    │     ├── CustomerController.java
+ │    │     ├── OrderController.java
+ │    │     └── MerchProductController.java # Controlador general para productos de manga
  │
  │    ├── dto/
- │    │     ├── ClienteDTO.java
- │    │     ├── PedidoDTO.java
- │    │     ├── PedidoProductoDTO.java
- │    │     ├── ProductoDTO.java
+ │    │     ├── CustomerDTO.java
+ │    │     ├── OrderDTO.java
+ │    │     ├── OrderProductDTO.java
+ │    │     ├── MerchProductDTO.java
+ │    │     ├── MangaBookDTO.java
+ │    │     ├── FigureDTO.java
+ │    │     ├── ApparelDTO.java
  │    │     ├── AuthRequestDTO.java
  │    │     └── AuthResponseDTO.java
  │
  │    ├── model/
- │    │     ├── Cliente.java
- │    │     ├── Pedido.java
- │    │     ├── PedidoProducto.java
- │    │     ├── Producto.java
- │    │     ├── Electronico.java
- │    │     ├── Ropa.java
- │    │     └── Usuario.java
+ │    │     ├── Customer.java
+ │    │     ├── Order.java
+ │    │     ├── OrderProduct.java
+ │    │     ├── MerchProduct.java           # Parent class
+ │    │     ├── MangaBook.java              # Child
+ │    │     ├── Figure.java                 # Child
+ │    │     ├── Apparel.java                # Child
+ │    │     └── User.java
  │
  │    ├── repository/
- │    │     ├── ClienteRepository.java
- │    │     ├── PedidoRepository.java
- │    │     ├── ProductoRepository.java
- │    │     └── UsuarioRepository.java
+ │    │     ├── CustomerRepository.java
+ │    │     ├── OrderRepository.java
+ │    │     ├── MerchProductRepository.java
+ │    │     └── UserRepository.java
  │
  │    ├── service/
  │    │     ├── interfaces/
- │    │     │     ├── ClienteService.java
- │    │     │     ├── PedidoService.java
- │    │     │     ├── ProductoService.java
- │    │     │     └── UsuarioService.java
+ │    │     │     ├── CustomerService.java
+ │    │     │     ├── OrderService.java
+ │    │     │     ├── MerchProductService.java
+ │    │     │     └── UserService.java
  │    │     │
  │    │     └── impl/
- │    │           ├── ClienteServiceImpl.java
- │    │           ├── PedidoServiceImpl.java
- │    │           ├── ProductoServiceImpl.java
- │    │           └── UsuarioServiceImpl.java
+ │    │           ├── CustomerServiceImpl.java
+ │    │           ├── OrderServiceImpl.java
+ │    │           ├── MerchProductServiceImpl.java
+ │    │           └── UserServiceImpl.java
  │
  │    ├── security/
  │    │     ├── JwtAuthenticationFilter.java
@@ -65,12 +69,11 @@ ecommerce-app/
  ├── src/main/resources/
  │    └── application.properties
  │
- └── src/test/java/com/example/ecommerce/
-      ├── ClienteServiceTest.java
-      ├── PedidoServiceTest.java
-      ├── ProductoServiceTest.java
+ └── src/test/java/store/ecommerce/
+      ├── CustomerServiceTest.java
+      ├── OrderServiceTest.java
+      ├── MerchProductServiceTest.java
       └── AuthControllerTest.java
-
 
 ```
 

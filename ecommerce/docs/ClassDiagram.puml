@@ -1,54 +1,63 @@
 @startuml
-title Diagrama de Clases - E-commerce con Seguridad
+title UML Diagram - Manga Merch Store with Security
 
-abstract class Producto {
+abstract class MerchProduct {
   - id: Long
-  - nombre: String
-  - precio: Double
-  - descripcion: String
+  - name: String
+  - price: Double
+  - description: String
 }
 
-class Electronico {
-  - garantia: String
-  - marca: String
+class MangaBook {
+  - author: String
+  - volumeNumber: int
+  - publisher: String
 }
 
-class Ropa {
-  - talla: String
+class Figure {
+  - brand: String
+  - character: String
+  - scale: String
+}
+
+class Apparel {
+  - size: String
   - color: String
+  - type: String
 }
 
-class Cliente {
+class Customer {
   - id: Long
-  - nombre: String
+  - name: String
   - email: String
 }
 
-class Pedido {
+class Order {
   - id: Long
-  - fecha: Date
+  - date: Date
   - total: Double
 }
 
-class PedidoProducto {
+class OrderProduct {
   - id: Long
-  - cantidad: int
+  - quantity: int
   - subtotal: Double
 }
 
-class Usuario {
+class User {
   - id: Long
   - username: String
   - password: String
   - roles: String
 }
 
-Producto <|-- Electronico
-Producto <|-- Ropa
+MerchProduct <|-- MangaBook
+MerchProduct <|-- Figure
+MerchProduct <|-- Apparel
 
-Cliente "1" --> "0..*" Pedido : realiza
-Pedido "1" --> "0..*" PedidoProducto
-PedidoProducto "1" --> "1" Producto
+Customer "1" --> "0..*" Order : places
+Order "1" --> "0..*" OrderProduct
+OrderProduct "1" --> "1" MerchProduct
 
-Cliente "1" --> "1" Usuario : credenciales
+Customer "1" --> "1" User : credentials
 @enduml
