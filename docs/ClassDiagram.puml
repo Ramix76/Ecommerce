@@ -1,0 +1,54 @@
+@startuml
+title Diagrama de Clases - E-commerce con Seguridad
+
+abstract class Producto {
+  - id: Long
+  - nombre: String
+  - precio: Double
+  - descripcion: String
+}
+
+class Electronico {
+  - garantia: String
+  - marca: String
+}
+
+class Ropa {
+  - talla: String
+  - color: String
+}
+
+class Cliente {
+  - id: Long
+  - nombre: String
+  - email: String
+}
+
+class Pedido {
+  - id: Long
+  - fecha: Date
+  - total: Double
+}
+
+class PedidoProducto {
+  - id: Long
+  - cantidad: int
+  - subtotal: Double
+}
+
+class Usuario {
+  - id: Long
+  - username: String
+  - password: String
+  - roles: String
+}
+
+Producto <|-- Electronico
+Producto <|-- Ropa
+
+Cliente "1" --> "0..*" Pedido : realiza
+Pedido "1" --> "0..*" PedidoProducto
+PedidoProducto "1" --> "1" Producto
+
+Cliente "1" --> "1" Usuario : credenciales
+@enduml
