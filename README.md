@@ -110,3 +110,12 @@ ecommerce-app/
 ## Diagrama de Clases E-commerce
 
 ![Diagrama de Clases](ecommerce/docs/diagrams/ClassDiagram.png)
+
+## Diagramas PUML
+
+![Diagrama de Clases](ecommerce/docs//ClassDiagram.puml)
+![Diagrama de Secuencia](ecommerce/docs//FluxDiagram.puml)
+
+## UML Diagram
+
+![Diagrama UML](ecommerce/docs/diagrams/Ecommerce.png)
