@@ -67,4 +67,4 @@ ecommerce-app/
 
 # Diagrama de Clases E-commerce
 
-![Diagrama de Clases](../../docs/diagrams/ClassDiagram.png)
+![Diagrama de Clases](ecommerce/docs/diagrams/ClassDiagram.png)
