@@ -1,12 +1,14 @@
-## Estructura del proyecto
+# E-commerce App
+
+## Project Structure
 
 ```text
 ecommerce-app/
  ├── src/main/java/com/example/ecommerce/
- │    ├── EcommerceApplication.java          # Clase principal Spring Boot
+ │    ├── EcommerceApplication.java          # Main Spring Boot class
  │
- │    ├── controller/                        # Controladores REST
- │    │     ├── AuthController.java          # (nuevo) login/register
+ │    ├── controller/                        # REST Controllers
+ │    │     ├── AuthController.java          # (new) login/register
  │    │     ├── ClienteController.java
  │    │     ├── PedidoController.java
  │    │     └── ProductoController.java
@@ -16,59 +18,59 @@ ecommerce-app/
  │    │     ├── PedidoDTO.java
  │    │     ├── PedidoProductoDTO.java
  │    │     ├── ProductoDTO.java
- │    │     └── AuthRequestDTO.java          # (nuevo) login credentials
+ │    │     └── AuthRequestDTO.java          # (new) login credentials
  │    │
- │    │     └── AuthResponseDTO.java         # (nuevo) JWT response
+ │    │     └── AuthResponseDTO.java         # (new) JWT response
  │
- │    ├── model/                             # Entidades JPA
+ │    ├── model/                             # JPA Entities
  │    │     ├── Cliente.java
  │    │     ├── Pedido.java
  │    │     ├── PedidoProducto.java
  │    │     ├── Producto.java
  │    │     ├── Electronico.java
  │    │     ├── Ropa.java
- │    │     └── Usuario.java                 # (nuevo) para autenticación
+ │    │     └── Usuario.java                 # (new) for authentication
  │
- │    ├── repository/                        # Repositorios
+ │    ├── repository/                        # Repositories
  │    │     ├── ClienteRepository.java
  │    │     ├── PedidoRepository.java
  │    │     ├── ProductoRepository.java
- │    │     └── UsuarioRepository.java       # (nuevo)
+ │    │     └── UsuarioRepository.java       # (new)
  │
  │    ├── service/                           
  │    │     ├── interfaces/                  
  │    │     │     ├── ClienteService.java
  │    │     │     ├── PedidoService.java
  │    │     │     ├── ProductoService.java
- │    │     │     └── UsuarioService.java    # (nuevo)
+ │    │     │     └── UsuarioService.java    # (new)
  │    │     │
  │    │     └── impl/                        
  │    │           ├── ClienteServiceImpl.java
  │    │           ├── PedidoServiceImpl.java
  │    │           ├── ProductoServiceImpl.java
- │    │           └── UsuarioServiceImpl.java # (nuevo)
+ │    │           └── UsuarioServiceImpl.java # (new)
  │
- │    ├── security/                          # 🔐 Nueva capa de seguridad
- │    │     ├── JwtAuthenticationFilter.java # filtro JWT
- │    │     ├── JwtTokenProvider.java        # util para generar/validar tokens
- │    │     ├── SecurityConfig.java          # configuración Spring Security
- │    │     └── CustomUserDetailsService.java# implementación UserDetailsService
+ │    ├── security/                          # 🔐 Security layer
+ │    │     ├── JwtAuthenticationFilter.java # JWT filter
+ │    │     ├── JwtTokenProvider.java        # Utility to generate/validate tokens
+ │    │     ├── SecurityConfig.java          # Spring Security configuration
+ │    │     └── CustomUserDetailsService.java# UserDetailsService implementation
  │
  │    └── exception/                         
  │          ├── GlobalExceptionHandler.java
  │          └── ResourceNotFoundException.java
  │
  ├── src/main/resources/
- │    ├── application.properties             # Configuración DB/JWT/etc.
- │    └── data.sql                           # (opcional) datos iniciales
+ │    ├── application.properties             # DB/JWT/other configs
+ │    └── data.sql                           # (optional) initial data
  │
- └── src/test/java/com/example/ecommerce/    # Tests unitarios/integrados
+ └── src/test/java/com/example/ecommerce/    # Unit/integration tests
       ├── ClienteServiceTest.java
       ├── PedidoServiceTest.java
       ├── ProductoServiceTest.java
-      └── AuthControllerTest.java            # (nuevo) pruebas de login/seguridad
+      └── AuthControllerTest.java            # (new) login/security tests
 
-```markdown
+
 # Diagrama de Clases E-commerce
 
 ![Diagrama de Clases](ecommerce/docs/diagrams/ClassDiagram.png)
