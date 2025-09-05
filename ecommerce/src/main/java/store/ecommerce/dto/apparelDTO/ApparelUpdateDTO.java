@@ -4,6 +4,10 @@ import lombok.Data;
 
 @Data
 public class ApparelUpdateDTO {
+    private String name;
     private Double price;
     private String description;
+    private String size;
+    private String color;
+    private String type;
 }
