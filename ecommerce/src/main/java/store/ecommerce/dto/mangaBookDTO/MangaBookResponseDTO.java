@@ -9,6 +9,6 @@ public class MangaBookResponseDTO {
     private Double price;
     private String description;
     private String author;
-    private int volumeNumber;
+    private Integer volumeNumber;
     private String publisher;
 }
