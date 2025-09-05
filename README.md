@@ -8,33 +8,62 @@ ecommerce-app/
  │    ├── EcommerceApplication.java
  │
  │    ├── config/
- │    │     └── DataInitializer.java        # Inicializa productos de manga y clientes
+ │    │     └── DataInitializer.java
  │
  │    ├── controller/
  │    │     ├── AuthController.java
  │    │     ├── CustomerController.java
  │    │     ├── OrderController.java
- │    │     └── MerchProductController.java # Controlador general para productos de manga
+ │    │     └── MerchProductController.java
  │
  │    ├── dto/
- │    │     ├── CustomerDTO.java
- │    │     ├── OrderDTO.java
- │    │     ├── OrderProductDTO.java
- │    │     ├── MerchProductDTO.java
- │    │     ├── MangaBookDTO.java
- │    │     ├── FigureDTO.java
- │    │     ├── ApparelDTO.java
- │    │     ├── AuthRequestDTO.java
- │    │     └── AuthResponseDTO.java
+ │    │     ├── merchproduct/
+ │    │     │     ├── MerchProductRequestDTO.java
+ │    │     │     ├── MerchProductResponseDTO.java
+ │    │     │     └── MerchProductUpdateDTO.java
+ │    │     │
+ │    │     ├── mangabook/
+ │    │     │     ├── MangaBookRequestDTO.java
+ │    │     │     ├── MangaBookResponseDTO.java
+ │    │     │     └── MangaBookUpdateDTO.java
+ │    │     │
+ │    │     ├── figure/
+ │    │     │     ├── FigureRequestDTO.java
+ │    │     │     ├── FigureResponseDTO.java
+ │    │     │     └── FigureUpdateDTO.java
+ │    │     │
+ │    │     ├── apparel/
+ │    │     │     ├── ApparelRequestDTO.java
+ │    │     │     ├── ApparelResponseDTO.java
+ │    │     │     └── ApparelUpdateDTO.java
+ │    │     │
+ │    │     ├── customer/
+ │    │     │     ├── CustomerRequestDTO.java
+ │    │     │     ├── CustomerResponseDTO.java
+ │    │     │     └── CustomerUpdateDTO.java
+ │    │     │
+ │    │     ├── order/
+ │    │     │     ├── OrderRequestDTO.java
+ │    │     │     ├── OrderResponseDTO.java
+ │    │     │     └── OrderUpdateDTO.java
+ │    │     │
+ │    │     ├── orderproduct/
+ │    │     │     ├── OrderProductRequestDTO.java
+ │    │     │     ├── OrderProductResponseDTO.java
+ │    │     │     └── OrderProductUpdateDTO.java
+ │    │     │
+ │    │     └── auth/
+ │    │           ├── AuthRequestDTO.java
+ │    │           └── AuthResponseDTO.java
  │
  │    ├── model/
  │    │     ├── Customer.java
  │    │     ├── Order.java
  │    │     ├── OrderProduct.java
- │    │     ├── MerchProduct.java           # Parent class
- │    │     ├── MangaBook.java              # Child
- │    │     ├── Figure.java                 # Child
- │    │     ├── Apparel.java                # Child
+ │    │     ├── MerchProduct.java
+ │    │     ├── MangaBook.java
+ │    │     ├── Figure.java
+ │    │     ├── Apparel.java
  │    │     └── User.java
  │
  │    ├── repository/
@@ -74,6 +103,7 @@ ecommerce-app/
       ├── OrderServiceTest.java
       ├── MerchProductServiceTest.java
       └── AuthControllerTest.java
+
 
 ```
 
