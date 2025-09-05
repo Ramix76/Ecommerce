@@ -118,7 +118,6 @@ ecommerce-app/
 ## Flux Diagram
 
 ![Flux Diagram](diagrams/FluxDiagram.png)
-![Diagrama de Secuencia](ecommerce/docs//FluxDiagram.puml)
 
 ## UML Diagram
 
