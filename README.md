@@ -114,6 +114,10 @@ ecommerce-app/
 ## Diagramas PUML
 
 ![Diagrama de Clases](ecommerce/docs//ClassDiagram.puml)
+
+## Flux Diagram
+
+![Flux Diagram](diagrams/FluxDiagram.png)
 ![Diagrama de Secuencia](ecommerce/docs//FluxDiagram.puml)
 
 ## UML Diagram
