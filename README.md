@@ -4,71 +4,74 @@
 
 ```text
 ecommerce-app/
- ├── src/main/java/com/example/ecommerce/
- │    ├── EcommerceApplication.java          # Main Spring Boot class
+ ├── src/main/java/store/ecommerce/
+ │    ├── EcommerceApplication.java
  │
- │    ├── controller/                        # REST Controllers
- │    │     ├── AuthController.java          # (new) login/register
+ │    ├── config/
+ │    │     └── DataInitializer.java
+ │
+ │    ├── controller/
+ │    │     ├── AuthController.java
  │    │     ├── ClienteController.java
  │    │     ├── PedidoController.java
  │    │     └── ProductoController.java
  │
- │    ├── dto/                               # DTOs
+ │    ├── dto/
  │    │     ├── ClienteDTO.java
  │    │     ├── PedidoDTO.java
  │    │     ├── PedidoProductoDTO.java
  │    │     ├── ProductoDTO.java
- │    │     └── AuthRequestDTO.java          # (new) login credentials
- │    │
- │    │     └── AuthResponseDTO.java         # (new) JWT response
+ │    │     ├── AuthRequestDTO.java
+ │    │     └── AuthResponseDTO.java
  │
- │    ├── model/                             # JPA Entities
+ │    ├── model/
  │    │     ├── Cliente.java
  │    │     ├── Pedido.java
  │    │     ├── PedidoProducto.java
  │    │     ├── Producto.java
  │    │     ├── Electronico.java
  │    │     ├── Ropa.java
- │    │     └── Usuario.java                 # (new) for authentication
+ │    │     └── Usuario.java
  │
- │    ├── repository/                        # Repositories
+ │    ├── repository/
  │    │     ├── ClienteRepository.java
  │    │     ├── PedidoRepository.java
  │    │     ├── ProductoRepository.java
- │    │     └── UsuarioRepository.java       # (new)
+ │    │     └── UsuarioRepository.java
  │
- │    ├── service/                           
- │    │     ├── interfaces/                  
+ │    ├── service/
+ │    │     ├── interfaces/
  │    │     │     ├── ClienteService.java
  │    │     │     ├── PedidoService.java
  │    │     │     ├── ProductoService.java
- │    │     │     └── UsuarioService.java    # (new)
+ │    │     │     └── UsuarioService.java
  │    │     │
- │    │     └── impl/                        
+ │    │     └── impl/
  │    │           ├── ClienteServiceImpl.java
  │    │           ├── PedidoServiceImpl.java
  │    │           ├── ProductoServiceImpl.java
- │    │           └── UsuarioServiceImpl.java # (new)
+ │    │           └── UsuarioServiceImpl.java
  │
- │    ├── security/                          # 🔐 Security layer
- │    │     ├── JwtAuthenticationFilter.java # JWT filter
- │    │     ├── JwtTokenProvider.java        # Utility to generate/validate tokens
- │    │     ├── SecurityConfig.java          # Spring Security configuration
- │    │     └── CustomUserDetailsService.java# UserDetailsService implementation
+ │    ├── security/
+ │    │     ├── JwtAuthenticationFilter.java
+ │    │     ├── JwtTokenProvider.java
+ │    │     ├── SecurityConfig.java
+ │    │     └── CustomUserDetailsService.java
  │
- │    └── exception/                         
+ │    └── exception/
  │          ├── GlobalExceptionHandler.java
  │          └── ResourceNotFoundException.java
  │
  ├── src/main/resources/
- │    ├── application.properties             # DB/JWT/other configs
- │    └── data.sql                           # (optional) initial data
+ │    └── application.properties
  │
- └── src/test/java/com/example/ecommerce/    # Unit/integration tests
+ └── src/test/java/com/example/ecommerce/
       ├── ClienteServiceTest.java
       ├── PedidoServiceTest.java
       ├── ProductoServiceTest.java
-      └── AuthControllerTest.java            # (new) login/security tests
+      └── AuthControllerTest.java
+
+
 ```
 
 ## Diagrama de Clases E-commerce
