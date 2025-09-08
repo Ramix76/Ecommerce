@@ -2,6 +2,8 @@ package store.ecommerce.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import store.ecommerce.enums.OrderStatus;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,6 +22,10 @@ public class Order {
 
     @Column(name = "total", nullable = false)
     private Double total;
+
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
