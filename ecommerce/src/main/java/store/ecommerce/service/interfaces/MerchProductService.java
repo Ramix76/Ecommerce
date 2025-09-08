@@ -21,7 +21,7 @@ public interface MerchProductService {
 
     MerchProductResponseDTO findById(Long id);
 
-//    MerchProductResponseDTO create(MerchProductRequestDTO request);
+    MerchProductResponseDTO create(MerchProductRequestDTO request);
 
     MerchProductResponseDTO update(Long id, MerchProductUpdateDTO update);
 

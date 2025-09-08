@@ -48,17 +48,17 @@ public class MerchProductServiceImpl implements MerchProductService {
         return mapMerchProductToResponse(product);
     }
 
-//    @Override
-//    public MerchProductResponseDTO create(MerchProductRequestDTO request) {
-//        validatePriceAndDescription(request.getPrice(), request.getDescription());
-//
-//        MerchProduct product = new MerchProduct() {};
-//        product.setName(request.getName());
-//        product.setPrice(request.getPrice());
-//        product.setDescription(request.getDescription());
-//        MerchProduct saved = merchProductRepository.save(product);
-//        return mapMerchProductToResponse(saved);
-//    }
+    @Override
+    public MerchProductResponseDTO create(MerchProductRequestDTO request) {
+        validatePriceAndDescription(request.getPrice(), request.getDescription());
+
+        MerchProduct product = new MerchProduct() {};
+        product.setName(request.getName());
+        product.setPrice(request.getPrice());
+        product.setDescription(request.getDescription());
+        MerchProduct saved = merchProductRepository.save(product);
+        return mapMerchProductToResponse(saved);
+    }
 
     @Override
     public MerchProductResponseDTO update(Long id, MerchProductUpdateDTO update) {
