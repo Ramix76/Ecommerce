@@ -1,3 +1,5 @@
+package store.ecommerce.service.impl;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,10 +32,11 @@ public class UserServiceImpl implements UserService {
 
         String token = jwtTokenProvider.generateToken(user.getUsername());
 
-        AuthResponseDTO response = new AuthResponseDTO();
-        response.setUsername(user.getUsername());
-        response.setToken(token);
-        return response;
+        return new AuthResponseDTO(
+                user.getUsername(),
+                token,
+                "Bearer"
+        );
     }
 
     @Override
@@ -46,13 +49,15 @@ public class UserServiceImpl implements UserService {
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRoles("ROLE_USER");
+
         User saved = userRepository.save(user);
 
         String token = jwtTokenProvider.generateToken(saved.getUsername());
 
-        AuthResponseDTO response = new AuthResponseDTO();
-        response.setUsername(saved.getUsername());
-        response.setToken(token);
-        return response;
+        return new AuthResponseDTO(
+                saved.getUsername(),
+                token,
+                "Bearer"
+        );
     }
 }
