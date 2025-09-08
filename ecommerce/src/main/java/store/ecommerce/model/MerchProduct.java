@@ -1,5 +1,6 @@
 package store.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -7,6 +8,7 @@ import lombok.Data;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "merch_products")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public abstract class MerchProduct {
 
     @Id
