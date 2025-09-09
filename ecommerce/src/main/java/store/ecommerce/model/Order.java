@@ -2,6 +2,7 @@ package store.ecommerce.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import store.ecommerce.enums.OrderStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,13 +14,21 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "date", nullable = false)
     private LocalDateTime date;
+
+    @Column(name = "total", nullable = false)
     private Double total;
 
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)

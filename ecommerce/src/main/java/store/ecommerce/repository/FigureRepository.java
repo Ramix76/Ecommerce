@@ -1,7 +1,9 @@
 package store.ecommerce.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import store.ecommerce.model.MangaBook;
+import store.ecommerce.model.Figure;
+import org.springframework.stereotype.Repository;
 
-public interface FigureRepository extends JpaRepository<MangaBook, Long> {
+@Repository
+public interface FigureRepository extends JpaRepository<Figure, Long> {
 }

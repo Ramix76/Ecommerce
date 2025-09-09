@@ -1,6 +1,7 @@
 @startuml
-title UML Diagram - Manga Merch Store with Security
+title UML Diagram - MerchProductService and Product Types
 
+' ----- Product hierarchy -----
 abstract class MerchProduct {
   - id: Long
   - name: String
@@ -26,38 +27,49 @@ class Apparel {
   - type: String
 }
 
-class Customer {
-  - id: Long
-  - name: String
-  - email: String
-}
-
-class Order {
-  - id: Long
-  - date: Date
-  - total: Double
-}
-
-class OrderProduct {
-  - id: Long
-  - quantity: int
-  - subtotal: Double
-}
-
-class User {
-  - id: Long
-  - username: String
-  - password: String
-  - roles: String
-}
-
 MerchProduct <|-- MangaBook
 MerchProduct <|-- Figure
 MerchProduct <|-- Apparel
 
-Customer "1" --> "0..*" Order : places
-Order "1" --> "0..*" OrderProduct
-OrderProduct "1" --> "1" MerchProduct
+' ----- Service -----
+interface MerchProductService {
+    + findAll(): List<MerchProductResponseDTO>
+    + findById(id: Long): MerchProductResponseDTO
+    + create(request: MerchProductRequestDTO): MerchProductResponseDTO
+    + update(id: Long, update: MerchProductUpdateDTO): MerchProductResponseDTO
+    + delete(id: Long): void
 
-Customer "1" --> "1" User : credentials
+    ' MangaBook specific
+    + findAllMangaBooks(): List<MangaBookResponseDTO>
+    + findMangaBookById(id: Long): MangaBookResponseDTO
+    + createMangaBook(request: MangaBookRequestDTO): MangaBookResponseDTO
+    + updateMangaBook(id: Long, update: MangaBookUpdateDTO): MangaBookResponseDTO
+    + deleteMangaBook(id: Long): void
+
+    ' Figure specific
+    + findAllFigures(): List<FigureResponseDTO>
+    + findFigureById(id: Long): FigureResponseDTO
+    + createFigure(request: FigureRequestDTO): FigureResponseDTO
+    + updateFigure(id: Long, update: FigureUpdateDTO): FigureResponseDTO
+    + deleteFigure(id: Long): void
+
+    ' Apparel specific
+    + findAllApparels(): List<ApparelResponseDTO>
+    + findApparelById(id: Long): ApparelResponseDTO
+    + createApparel(request: ApparelRequestDTO): ApparelResponseDTO
+    + updateApparel(id: Long, update: ApparelUpdateDTO): ApparelResponseDTO
+    + deleteApparel(id: Long): void
+}
+
+' ----- Implementation -----
+class MerchProductServiceImpl {
+    - merchProductRepository
+    - mangaBookRepository
+    - figureRepository
+    - apparelRepository
+    + implement all methods of MerchProductService
+}
+
+MerchProductService <|.. MerchProductServiceImpl
+
 @enduml

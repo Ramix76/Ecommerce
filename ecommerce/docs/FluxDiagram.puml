@@ -1,0 +1,58 @@
+@startuml
+title Flow Diagram - Manga Merch E-commerce
+
+start
+
+:User (Frontend / Postman) sends request;
+
+' --- Security Layer ---
+if (Request requires authentication?) then (Yes)
+  -> "AuthController";
+  :Validate credentials via UserService;
+  if (JWT valid?) then (Yes)
+    -> Continue;
+  else (No)
+    :Return 401 Unauthorized;
+    stop
+  endif
+else (No)
+  -> Continue;
+endif
+
+' --- Controllers ---
+if (Request is MerchProduct CRUD?) then (Yes)
+  -> "MerchProductController";
+  :Convert Request to specific DTO;
+  -> "MerchProductService";
+  if (MangaBook?) then
+    :Call MangaBook-specific methods (CRUD);
+  else if (Figure?) then
+    :Call Figure-specific methods (CRUD);
+  else if (Apparel?) then
+    :Call Apparel-specific methods (CRUD);
+  else
+    :Call general MerchProduct methods;
+  endif
+elseif (Request is Order CRUD?) then
+  -> "OrderController";
+  :Convert Request to OrderRequestDTO;
+  -> "OrderService";
+endif
+
+' --- Service Layer ---
+:Service applies business logic;
+:Map entities <-> DTOs;
+
+' --- Repository Layer ---
+-> "JPA Repository";
+:Perform database operations (CRUD);
+-> "MySQL Database";
+
+' --- Response ---
+:Return entity mapped to ResponseDTO;
+-> Controller;
+:Controller sends JSON Response;
+-> User;
+
+stop
+@enduml
