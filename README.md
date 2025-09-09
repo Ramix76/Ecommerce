@@ -294,17 +294,9 @@ security.jwt.secret=${JWT_SECRET}
 ### Flux Diagram:
 ![Flux Diagram](ecommerce/docs/diagrams/FluxDiagram.png)
 
-## UML Diagram
+### UML Diagram
 
 ![Diagrama UML](ecommerce/docs/diagrams/Ecommerce.png)
 
-flowchart TD
-A[User Login/Register] --> B[AuthController]
-B --> C{UserService}
-C -->|Valid Credentials| D[JWT Token Generated]
-C -->|Invalid Credentials| E[Exception Thrown]
-D --> F[JWT Token Sent to User]
-F --> G[User Calls Secured API with JWT]
-G --> H[JwtAuthenticationFilter Verifies JWT]
-H -->|Valid| I[Request Proceeds]
-H -->|Invalid| J[Unauthorized Response]
+### Floow chart
+![Diagrama UML](ecommerce/docs/diagrams/flowchart.png)
