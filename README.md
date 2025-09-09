@@ -135,3 +135,7 @@ security.jwt.secret=${JWT_SECRET}
 ## UML Diagram
 
 ![Diagrama UML](ecommerce/docs/diagrams/Ecommerce.png)
+
+## Swagger link
+http://localhost:8081/swagger-ui.html
+
