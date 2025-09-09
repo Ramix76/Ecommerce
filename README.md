@@ -17,6 +17,7 @@
 ![Swagger](https://img.shields.io/badge/swagger-OpenAPI-orange)
 ![Issues](https://img.shields.io/github/issues/Ramix76/Ecommerce)
 ![ChatGPT](https://img.shields.io/badge/ai-chatgpt-lightblue)
+![Swagger](https://img.shields.io/badge/swagger-OpenAPI-orange)
 
 ## Table of Contents
 1. [Description](#description)
