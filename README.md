@@ -40,6 +40,8 @@ The main functionalities include:
 - Creation of customer orders with order products.
 - Role-based access control (`ROLE_USER`, `ROLE_ADMIN`).
 - REST API documented with Swagger.
+  
+[⬆️ Volver al inicio](#table-of-contents)
 
 ---
 
@@ -177,6 +179,7 @@ The main functionalities include:
 
 
 ```
+[⬆️ Volver al inicio](#table-of-contents)
 
 ---
 
@@ -211,6 +214,8 @@ The main functionalities include:
 - **API Docs:** Swagger (Springdoc OpenAPI)
 - **Version:** 2.8.4
 
+[⬆️ Volver al inicio](#table-of-contents)
+
 ---
 
 ## Data Initialization
@@ -224,6 +229,8 @@ The `DataInitializer` class loads **sample data** for the application, including
     - Figures
     - Apparel
 - **Sample order:** for `mangafan`
+
+[⬆️ Volver al inicio](#table-of-contents)
 
 ---
 
@@ -240,6 +247,9 @@ Run tests with Maven:
 ```bash
 mvn test
 ```
+
+[⬆️ Volver al inicio](#table-of-contents)
+
 ---
 
 ## How to Run
@@ -259,6 +269,8 @@ mvn spring-boot:run
 ```
 4. **Access Swagger at:**
    http://localhost:8081/swagger-ui.html
+
+[⬆️ Volver al inicio](#table-of-contents)
 
 ---
 
@@ -281,6 +293,8 @@ In real-world projects, the JWT secret should **not** be stored in code or versi
 ```properties
 security.jwt.secret=${JWT_SECRET}
 ```
+
+[⬆️ Volver al inicio](#table-of-contents)
 
 ---
 
@@ -312,6 +326,7 @@ security.jwt.secret=${JWT_SECRET}
 | /api/orders/{id}    | GET    | Get order by ID                | Admin/User      |
 | /api/orders/{id}    | PUT    | Update order status            | Admin only      |
 
+[⬆️ Volver al inicio](#table-of-contents)
 
 ---
 
@@ -320,11 +335,25 @@ security.jwt.secret=${JWT_SECRET}
 ### Class Diagram:
 ![Class Diagram](ecommerce/docs/diagrams/ClassDiagram.png)
 
+[⬆️ Volver al inicio](#table-of-contents)
+
+---
+
 ### Flux Diagram:
 ![Flux Diagram](ecommerce/docs/diagrams/FluxDiagram.png)
+
+[⬆️ Volver al inicio](#table-of-contents)
+
+---
 
 ### Floow chart
 ![Diagrama UML](ecommerce/docs/diagrams/flowchart.png)
 
+[⬆️ Volver al inicio](#table-of-contents)
+
+---
+
 ### UML Diagram
 ![Diagrama UML](ecommerce/docs/diagrams/Ecommerce.png)
+
+[⬆️ Volver al inicio](#table-of-contents)
