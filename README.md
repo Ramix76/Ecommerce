@@ -123,8 +123,6 @@ In real-world projects, the JWT secret **should not be stored in code or version
 2. Configure Spring Boot to read the secret from an environment variable:
 
 security.jwt.secret=${JWT_SECRET}
-```properties
-'''
 
 ## PUML Diagrams
 
