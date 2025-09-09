@@ -124,7 +124,7 @@ In real-world projects, the JWT secret **should not be stored in code or version
 
 security.jwt.secret=${JWT_SECRET}
 ```properties
-
+'''
 
 ## PUML Diagrams
 
