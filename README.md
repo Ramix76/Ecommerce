@@ -1,5 +1,34 @@
 # E-commerce App
 
+## Table of Contents
+1. [Description](#description)
+2. [Project Structure](#project-structure)
+3. [Technology Stack](#technology-stack-extracted-from-pomxml)
+    - [Backend](#backend)
+    - [Persistence](#persistence)
+    - [Build Tool](#build-tool)
+    - [JWT](#jwt)
+    - [Lombok](#lombok)
+    - [Testing](#testing)
+    - [Documentation](#documentation)
+4. [Data Initialization](#data-initialization)
+5. [Testing](#testing-1)
+6. [How to Run](#how-to-run)
+7. [Security](#security)
+    - [Security and Handling of the JWT Secret Key](#security-and-handling-of-the-jwt-secret-key)
+    - [Recommended Practice in Professional Environments](#recommended-practice-in-professional-environments)
+8. [API Endpoints](#api-endpoints)
+    - [Authentication](#authentication)
+    - [Products](#products)
+    - [Orders](#orders)
+9. [PUML Diagrams](#puml-diagrams)
+    - [Class Diagram](#class-diagram)
+    - [Flux Diagram](#flux-diagram)
+    - [Flow Chart](#floow-chart)
+    - [UML Diagram](#uml-diagram)
+
+---
+
 ## Description
 
 This is a **Spring Boot E-commerce application** for managing a manga store. It includes authentication, role-based authorization, CRUD operations for products, customers, and orders, and JWT-based security.
