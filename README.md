@@ -1,5 +1,13 @@
 # E-commerce App
 
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-passing-brightgreen)
+![Java Version](https://img.shields.io/badge/java-17-blue)
+![Spring Boot](https://img.shields.io/badge/springboot-3.5.5-brightgreen)
+![License](https://img.shields.io/github/license/Ramix76/Ecommerce)
+![Swagger](https://img.shields.io/badge/swagger-OpenAPI-orange)
+![Issues](https://img.shields.io/github/issues/Ramix76/Ecommerce)
+
 ## Table of Contents
 1. [Description](#description)
 2. [Project Structure](#project-structure)
