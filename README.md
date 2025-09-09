@@ -294,9 +294,8 @@ security.jwt.secret=${JWT_SECRET}
 ### Flux Diagram:
 ![Flux Diagram](ecommerce/docs/diagrams/FluxDiagram.png)
 
-### UML Diagram
-
-![Diagrama UML](ecommerce/docs/diagrams/Ecommerce.png)
-
 ### Floow chart
 ![Diagrama UML](ecommerce/docs/diagrams/flowchart.png)
+
+### UML Diagram
+![Diagrama UML](ecommerce/docs/diagrams/Ecommerce.png)
