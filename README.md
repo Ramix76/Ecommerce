@@ -1,5 +1,19 @@
 # E-commerce App
 
+## Description
+
+This is a **Spring Boot E-commerce application** for managing a manga store. It includes authentication, role-based authorization, CRUD operations for products, customers, and orders, and JWT-based security.
+
+The main functionalities include:
+
+- User registration and login with JWT authentication.
+- Management of Manga Books, Figures, and Apparel.
+- Creation of customer orders with order products.
+- Role-based access control (`ROLE_USER`, `ROLE_ADMIN`).
+- REST API documented with Swagger.
+
+---
+
 ## Project Structure
 
 ```text
@@ -134,23 +148,143 @@
 
 
 ```
-## SECURITY
 
-### Security and Handling of the JWT Secret Key
+---
 
-In this project, the secret key used to sign JWT tokens (`security.jwt.secret`) is stored in the `application.properties` file. This is **not recommended** in a production environment, but it was done this way for educational purposes:
+# Technology Stack Extracted from pom.xml
+
+## Backend
+- **Language:** Java 17
+- **Framework:** Spring Boot 3.5.5
+- **Security:** Spring Security
+
+## Persistence
+- **Database:** MySQL
+- **ORM:** Spring Data JPA
+
+## Build Tool
+- **Tool:** Maven
+
+## JWT
+- **Library:** JJWT
+- **Version:** 0.11.5
+
+## Lombok
+- **Library:** Lombok
+- **Optional:** true
+
+## Testing
+- **Unit & Integration Testing:** JUnit (Spring Boot Starter Test)
+- **Mocking:** Mockito Core, Mockito JUnit Jupiter
+- **Security Testing:** Spring Security Test
+
+## Documentation
+- **API Docs:** Swagger (Springdoc OpenAPI)
+- **Version:** 2.8.4
+
+---
+
+## Data Initialization
+
+The `DataInitializer` class loads **sample data** for the application, including:
+
+- **Admin user:** `admin`
+- **Customer user:** `mangafan`
+- **Sample products:**
+    - MangaBooks
+    - Figures
+    - Apparel
+- **Sample order:** for `mangafan`
+
+---
+
+## Testing
+
+Unit and integration tests are implemented using **JUnit** and **Mockito**:
+
+- `src/test/java/store/ecommerce/controller` → Controller tests
+- `src/test/java/store/ecommerce/security` → Security components
+- `src/test/java/store/ecommerce/service/impl` → Service layer tests
+
+Run tests with Maven:
+
+```bash
+mvn test
+```
+---
+
+## How to Run
+
+1. **Clone the repository:**
+
+```bash
+git clone <https://github.com/Ramix76/Ecommerce>
+cd Ecommerce
+```
+2. **Configure MySQL database:**
+Edit `application.properties` and set your database connection details.
+3. **Build and run the application:**
+```bash
+mvn clean install
+mvn spring-boot:run
+```
+4. **Access Swagger at:**
+   http://localhost:8081/swagger-ui.html
+
+---
+
+# Security
+
+## Security and Handling of the JWT Secret Key
+
+In this project, the secret key used to sign JWT tokens (`security.jwt.secret`) is stored in the `application.properties` file. This is **not recommended in a production environment**, but it was done this way for **educational purposes**:
 
 - It allows the professor to easily run and test the application without needing to configure environment variables.
 - It makes it easier to review the project without blocking access to the authentication functionality.
 
-#### Recommended Practice in Professional Environments
+### Recommended Practice in Professional Environments
 
-In real-world projects, the JWT secret **should not be stored in code or versioned configuration files**. It is recommended to:
+In real-world projects, the JWT secret should **not** be stored in code or versioned configuration files. Recommended approaches:
 
-1. Store the secret in **environment variables** or **secret management services**.
-2. Configure Spring Boot to read the secret from an environment variable:
+- Store the secret in **environment variables** or **secret management services**.
+- Configure Spring Boot to read the secret from an environment variable:
 
+```properties
 security.jwt.secret=${JWT_SECRET}
+```
+
+---
+
+## API Endpoints
+
+### Authentication
+
+| Endpoint            | Method | Description               | Access |
+|--------------------|--------|---------------------------|--------|
+| /api/auth/login     | POST   | Login user and get JWT    | Public |
+| /api/auth/register  | POST   | Register a new user       | Public |
+
+### Products
+
+| Endpoint               | Method | Description                   | Access      |
+|-----------------------|--------|-------------------------------|------------|
+| /api/products         | GET    | Get all products              | Public     |
+| /api/products/{id}    | GET    | Get product by ID             | Public     |
+| /api/products         | POST   | Create new product            | Admin only |
+| /api/products/{id}    | PUT    | Update product by ID          | Admin only |
+| /api/products/{id}    | DELETE | Delete product by ID          | Admin only |
+
+### Orders
+
+| Endpoint             | Method | Description                   | Access          |
+|---------------------|--------|-------------------------------|----------------|
+| /api/orders         | GET    | Get all orders                 | Admin only      |
+| /api/orders         | POST   | Create order                   | User            |
+| /api/orders/{id}    | GET    | Get order by ID                | Admin/User      |
+| /api/orders/{id}    | PUT    | Update order status            | Admin only      |
+
+
+---
 
 ## PUML Diagrams
 
@@ -164,6 +298,13 @@ security.jwt.secret=${JWT_SECRET}
 
 ![Diagrama UML](ecommerce/docs/diagrams/Ecommerce.png)
 
-## Swagger link
-http://localhost:8081/swagger-ui.html
-
+flowchart TD
+A[User Login/Register] --> B[AuthController]
+B --> C{UserService}
+C -->|Valid Credentials| D[JWT Token Generated]
+C -->|Invalid Credentials| E[Exception Thrown]
+D --> F[JWT Token Sent to User]
+F --> G[User Calls Secured API with JWT]
+G --> H[JwtAuthenticationFilter Verifies JWT]
+H -->|Valid| I[Request Proceeds]
+H -->|Invalid| J[Unauthorized Response]
