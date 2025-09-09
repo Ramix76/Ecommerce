@@ -3,106 +3,134 @@
 ## Project Structure
 
 ```text
-ecommerce-app/
- ├── src/main/java/store/ecommerce/
- │    ├── EcommerceApplication.java
- │
- │    ├── config/
- │    │     └── DataInitializer.java
- │
- │    ├── controller/
- │    │     ├── AuthController.java
- │    │     ├── CustomerController.java
- │    │     ├── OrderController.java
- │    │     └── MerchProductController.java
- │
- │    ├── dto/
- │    │     ├── merchproduct/
- │    │     │     ├── MerchProductRequestDTO.java
- │    │     │     ├── MerchProductResponseDTO.java
- │    │     │     └── MerchProductUpdateDTO.java
- │    │     │
- │    │     ├── mangabook/
- │    │     │     ├── MangaBookRequestDTO.java
- │    │     │     ├── MangaBookResponseDTO.java
- │    │     │     └── MangaBookUpdateDTO.java
- │    │     │
- │    │     ├── figure/
- │    │     │     ├── FigureRequestDTO.java
- │    │     │     ├── FigureResponseDTO.java
- │    │     │     └── FigureUpdateDTO.java
- │    │     │
- │    │     ├── apparel/
- │    │     │     ├── ApparelRequestDTO.java
- │    │     │     ├── ApparelResponseDTO.java
- │    │     │     └── ApparelUpdateDTO.java
- │    │     │
- │    │     ├── customer/
- │    │     │     ├── CustomerRequestDTO.java
- │    │     │     ├── CustomerResponseDTO.java
- │    │     │     └── CustomerUpdateDTO.java
- │    │     │
- │    │     ├── order/
- │    │     │     ├── OrderRequestDTO.java
- │    │     │     ├── OrderResponseDTO.java
- │    │     │     └── OrderUpdateDTO.java
- │    │     │
- │    │     ├── orderproduct/
- │    │     │     ├── OrderProductRequestDTO.java
- │    │     │     ├── OrderProductResponseDTO.java
- │    │     │     └── OrderProductUpdateDTO.java
- │    │     │
- │    │     └── auth/
- │    │           ├── AuthRequestDTO.java
- │    │           └── AuthResponseDTO.java
- │
- │    ├── model/
- │    │     ├── Customer.java
- │    │     ├── Order.java
- │    │     ├── OrderProduct.java
- │    │     ├── MerchProduct.java
- │    │     ├── MangaBook.java
- │    │     ├── Figure.java
- │    │     ├── Apparel.java
- │    │     └── User.java
- │
- │    ├── repository/
- │    │     ├── CustomerRepository.java
- │    │     ├── OrderRepository.java
- │    │     ├── MerchProductRepository.java
- │    │     └── UserRepository.java
- │
- │    ├── service/
- │    │     ├── interfaces/
- │    │     │     ├── CustomerService.java
- │    │     │     ├── OrderService.java
- │    │     │     ├── MerchProductService.java
- │    │     │     └── UserService.java
- │    │     │
- │    │     └── impl/
- │    │           ├── CustomerServiceImpl.java
- │    │           ├── OrderServiceImpl.java
- │    │           ├── MerchProductServiceImpl.java
- │    │           └── UserServiceImpl.java
- │
- │    ├── security/
- │    │     ├── JwtAuthenticationFilter.java
- │    │     ├── JwtTokenProvider.java
- │    │     ├── SecurityConfig.java
- │    │     └── CustomUserDetailsService.java
- │
- │    └── exception/
- │          ├── GlobalExceptionHandler.java
- │          └── ResourceNotFoundException.java
- │
- ├── src/main/resources/
- │    └── application.properties
- │
- └── src/test/java/store/ecommerce/
-      ├── CustomerServiceTest.java
-      ├── OrderServiceTest.java
-      ├── MerchProductServiceTest.java
-      └── AuthControllerTest.java
+├── HELP.md
+├── README.md
+└── ecommerce
+    ├── docs
+    │   ├── ClassDiagram.puml
+    │   ├── FluxDiagram.puml
+    │   └── diagrams
+    │       ├── ClassDiagram.png
+    │       ├── Ecommerce.png
+    │       └── FluxDiagram.png
+    ├── mvnw
+    ├── mvnw.cmd
+    ├── pom.xml
+    └── src
+        ├── main
+        │   ├── java
+        │   │   └── store
+        │   │       └── ecommerce
+        │   │           ├── EcommerceApplication.java
+        │   │           ├── config
+        │   │           │   ├── DataInitializer.java
+        │   │           │   └── OpenAPIConfig.java
+        │   │           ├── controller
+        │   │           │   ├── AuthController.java
+        │   │           │   ├── CustomerController.java
+        │   │           │   ├── MerchProductController.java
+        │   │           │   └── OrderController.java
+        │   │           ├── dto
+        │   │           │   ├── apparelDTO
+        │   │           │   │   ├── ApparelRequestDTO.java
+        │   │           │   │   ├── ApparelResponseDTO.java
+        │   │           │   │   └── ApparelUpdateDTO.java
+        │   │           │   ├── authDTO
+        │   │           │   │   ├── AuthRequestDTO.java
+        │   │           │   │   └── AuthResponseDTO.java
+        │   │           │   ├── customerDTO
+        │   │           │   │   ├── CustomerRequestDTO.java
+        │   │           │   │   ├── CustomerResponseDTO.java
+        │   │           │   │   └── CustomerUpdateDTO.java
+        │   │           │   ├── figureDTO
+        │   │           │   │   ├── FigureRequestDTO.java
+        │   │           │   │   ├── FigureResponseDTO.java
+        │   │           │   │   └── FigureUpdateDTO.java
+        │   │           │   ├── mangaBookDTO
+        │   │           │   │   ├── MangaBookRequestDTO.java
+        │   │           │   │   ├── MangaBookResponseDTO.java
+        │   │           │   │   └── MangaBookUpdateDTO.java
+        │   │           │   ├── merchProductDTO
+        │   │           │   │   ├── MerchProductRequestDTO.java
+        │   │           │   │   ├── MerchProductResponseDTO.java
+        │   │           │   │   └── MerchProductUpdateDTO.java
+        │   │           │   ├── orderDTO
+        │   │           │   │   ├── OrderRequestDTO.java
+        │   │           │   │   ├── OrderResponseDTO.java
+        │   │           │   │   └── OrderUpdateDTO.java
+        │   │           │   └── orderProductDTO
+        │   │           │       ├── OrderProductRequestDTO.java
+        │   │           │       ├── OrderProductResponseDTO.java
+        │   │           │       └── OrderProductUpdateDTO.java
+        │   │           ├── enums
+        │   │           │   ├── OrderStatus.java
+        │   │           │   └── Role.java
+        │   │           ├── exception
+        │   │           │   ├── BadRequestException.java
+        │   │           │   ├── ExceptionResponseHelper.java
+        │   │           │   ├── GlobalExceptionHandler.java
+        │   │           │   ├── InvalidCredentialsException.java
+        │   │           │   ├── ResourceNotFoundException.java
+        │   │           │   └── UsernameAlreadyExistsException.java
+        │   │           ├── model
+        │   │           │   ├── Apparel.java
+        │   │           │   ├── Customer.java
+        │   │           │   ├── Figure.java
+        │   │           │   ├── MangaBook.java
+        │   │           │   ├── MerchProduct.java
+        │   │           │   ├── Order.java
+        │   │           │   ├── OrderProduct.java
+        │   │           │   └── User.java
+        │   │           ├── repository
+        │   │           │   ├── ApparelRepository.java
+        │   │           │   ├── CustomerRepository.java
+        │   │           │   ├── FigureRepository.java
+        │   │           │   ├── MangaBookRepository.java
+        │   │           │   ├── MerchProductRepository.java
+        │   │           │   ├── OrderProductRepository.java
+        │   │           │   ├── OrderRepository.java
+        │   │           │   └── UserRepository.java
+        │   │           ├── security
+        │   │           │   ├── CustomUserDetailsService.java
+        │   │           │   ├── JwtAuthenticationEntryPoint.java
+        │   │           │   ├── JwtAuthenticationFilter.java
+        │   │           │   ├── JwtTokenProvider.java
+        │   │           │   └── SecurityConfig.java
+        │   │           └── service
+        │   │               ├── impl
+        │   │               │   ├── CustomerServiceImpl.java
+        │   │               │   ├── MerchProductServiceImpl.java
+        │   │               │   ├── OrderServiceImpl.java
+        │   │               │   └── UserServiceImpl.java
+        │   │               └── interfaces
+        │   │                   ├── CustomerService.java
+        │   │                   ├── MerchProductService.java
+        │   │                   ├── OrderService.java
+        │   │                   └── UserService.java
+        │   └── resources
+        │       └── application.properties
+        └── test
+            └── java
+                └── store
+                    └── ecommerce
+                        ├── EcommerceApplicationTests.java
+                        ├── controller
+                        │   ├── AuthControllerTest.java
+                        │   ├── CustomerControllerTest.java
+                        │   ├── MerchProductControllerTest.java
+                        │   └── OrderControllerTest.java
+                        ├── security
+                        │   ├── CustomUserDetailsServiceTest.java
+                        │   ├── JwtAuthenticationEntryPointTest.java
+                        │   ├── JwtAuthenticationFilterTest.java
+                        │   ├── JwtTokenProviderTest.java
+                        │   └── SecurityConfigTest.java
+                        └── service
+                            └── impl
+                                ├── CustomerServiceImplTest.java
+                                ├── MerchProductServiceImplTest.java
+                                ├── OrderServiceImplTest.java
+                                └── UserServiceImplTest.java
 
 
 ```
