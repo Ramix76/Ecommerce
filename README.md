@@ -106,6 +106,25 @@ ecommerce-app/
 
 
 ```
+## SECURITY
+
+### Security and Handling of the JWT Secret Key
+
+In this project, the secret key used to sign JWT tokens (`security.jwt.secret`) is stored in the `application.properties` file. This is **not recommended** in a production environment, but it was done this way for educational purposes:
+
+- It allows the professor to easily run and test the application without needing to configure environment variables.
+- It makes it easier to review the project without blocking access to the authentication functionality.
+
+#### Recommended Practice in Professional Environments
+
+In real-world projects, the JWT secret **should not be stored in code or versioned configuration files**. It is recommended to:
+
+1. Store the secret in **environment variables** or **secret management services**.
+2. Configure Spring Boot to read the secret from an environment variable:
+
+```properties
+security.jwt.secret=${JWT_SECRET}
+
 
 ## PUML Diagrams
 
