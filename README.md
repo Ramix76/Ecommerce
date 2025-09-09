@@ -126,7 +126,10 @@ security.jwt.secret=${JWT_SECRET}
 
 ## PUML Diagrams
 
+### Class Diagram:
 ![Class Diagram](ecommerce/docs/diagrams/ClassDiagram.png)
+
+### Flux Diagram:
 ![Flux Diagram](ecommerce/docs/diagrams/FluxDiagram.png)
 
 ## UML Diagram
