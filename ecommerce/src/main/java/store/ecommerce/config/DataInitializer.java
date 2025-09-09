@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import store.ecommerce.enums.OrderStatus;
 import store.ecommerce.model.*;
 import store.ecommerce.repository.*;
+import store.ecommerce.enums.Role;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,7 +31,7 @@ public class DataInitializer implements CommandLineRunner {
             User admin = new User();
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("admin123"));
-            admin.setRoles("ROLE_ADMIN");
+            admin.setRole(Role.ROLE_ADMIN); // ✅ usa enum
             userRepository.save(admin);
         }
 
@@ -38,7 +39,7 @@ public class DataInitializer implements CommandLineRunner {
             User customerUser = new User();
             customerUser.setUsername("mangafan");
             customerUser.setPassword(passwordEncoder.encode("fan123"));
-            customerUser.setRoles("ROLE_USER");
+            customerUser.setRole(Role.ROLE_USER); // ✅ usa enum
             userRepository.save(customerUser);
         }
 
@@ -157,6 +158,6 @@ public class DataInitializer implements CommandLineRunner {
             orderProductRepository.saveAll(List.of(op1, op2));
         }
 
-        System.out.println("\nDataInitializer: Manga store data loaded successfully\n");
+        System.out.println("\n ✅DataInitializer: Manga store data loaded successfully\n");
     }
 }

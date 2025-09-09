@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import store.ecommerce.dto.authDTO.AuthRequestDTO;
 import store.ecommerce.dto.authDTO.AuthResponseDTO;
+import store.ecommerce.enums.Role;
 import store.ecommerce.exception.InvalidCredentialsException;
 import store.ecommerce.exception.ResourceNotFoundException;
 import store.ecommerce.exception.UsernameAlreadyExistsException;
@@ -48,7 +49,8 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRoles("ROLE_USER");
+
+        user.setRole(request.getRole() != null ? request.getRole() : Role.ROLE_USER);
 
         User saved = userRepository.save(user);
 

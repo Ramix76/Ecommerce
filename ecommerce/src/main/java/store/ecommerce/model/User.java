@@ -2,6 +2,7 @@ package store.ecommerce.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import store.ecommerce.enums.Role;
 
 @Data
 @Entity
@@ -19,6 +20,7 @@ public class User {
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    @Column(name = "roles", nullable = false, length = 50)
-    private String roles;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false, length = 20)
+    private Role role;
 }
