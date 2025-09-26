@@ -7,7 +7,10 @@ export default function Navbar() {
 
   return (
     <nav style={{ padding: "10px", borderBottom: "1px solid #ccc", marginBottom: "20px" }}>
-      <Link to="/products" style={{ marginRight: "10px" }}>Products</Link>
+      <Link to="/products/manga" style={{ marginRight: "10px" }}>Manga</Link>
+      <Link to="/products/figures" style={{ marginRight: "10px" }}>Figures</Link>
+      <Link to="/products/apparel" style={{ marginRight: "10px" }}>Apparel</Link>
+
       {username && (
         <>
           <Link to="/orders" style={{ marginRight: "10px" }}>Orders</Link>
@@ -16,6 +19,7 @@ export default function Navbar() {
           <button onClick={logout}>Logout</button>
         </>
       )}
+
       {!username && <Link to="/login">Login</Link>}
     </nav>
   );

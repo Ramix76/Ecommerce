@@ -3,10 +3,13 @@ import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 
 import Login from "./pages/Login/Login";
-import Products from "./pages/Products/Products";
 import Orders from "./pages/Orders/Orders";
 import Customers from "./pages/Customers/Customers";
 import NotFound from "./pages/NotFound/NotFound";
+
+import Manga from "./pages/Products/Manga";
+import Figures from "./pages/Products/Figures";
+import Apparel from "./pages/Products/Apparel";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -16,7 +19,13 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/products" element={<Products />} />
+
+          {/* Product routes */}
+          <Route path="/products/manga" element={<Manga />} />
+          <Route path="/products/figures" element={<Figures />} />
+          <Route path="/products/apparel" element={<Apparel />} />
+
+          {/* Protected routes */}
           <Route
             path="/orders"
             element={
@@ -33,6 +42,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>
