@@ -14,35 +14,80 @@ export default function Login() {
     try {
       const data = await apiLogin(usernameInput, password);
       login(data.accessToken, data.username);
-      navigate("/products");
+      navigate("/");
     } catch (err) {
       alert("Login error: " + (err.response?.data?.message || err.message));
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
+    <div
       style={{
         display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-        width: "250px",
-        margin: "50px auto"
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "inherit",
       }}
     >
-      <input
-        placeholder="Username"
-        value={usernameInput}
-        onChange={e => setUsernameInput(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-      />
-      <button type="submit">Login</button>
-    </form>
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "15px",
+          width: "400px",
+          padding: "40px",
+          borderRadius: "12px",
+          boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
+          backgroundColor: "inherit",
+        }}
+      >
+        <h2 style={{ textAlign: "center", color: "white" }}>Login</h2>
+        <input
+          placeholder="Username"
+          value={usernameInput}
+          onChange={(e) => setUsernameInput(e.target.value)}
+          style={{
+            padding: "12px",
+            fontSize: "16px",
+            borderRadius: "6px",
+            border: "1px solid #ccc",
+            backgroundColor: "rgba(255,255,255,0.1)",
+          }}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={{
+            padding: "12px",
+            fontSize: "16px",
+            borderRadius: "6px",
+            border: "1px solid #ccc",
+            backgroundColor: "rgba(255,255,255,0.1)",
+          }}
+        />
+        <button
+          type="submit"
+          style={{
+            padding: "14px",
+            fontSize: "16px",
+            borderRadius: "6px",
+            backgroundColor: "#00aaff",
+            color: "white",
+            border: "none",
+            cursor: "pointer",
+            transition: "background-color 0.3s",
+          }}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = "#0088cc")}
+          onMouseLeave={(e) => (e.target.style.backgroundColor = "#00aaff")}
+        >
+          Login
+        </button>
+      </form>
+    </div>
   );
 }
