@@ -9,6 +9,7 @@ public class OrderResponseDTO {
     private Long id;
     private LocalDateTime date;
     private Double total;
+    private String status;
     private Long customerId;
     private List<Long> merchProductIds;
 }

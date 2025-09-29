@@ -1,6 +1,5 @@
 package store.ecommerce.service.interfaces;
 
-
 import store.ecommerce.dto.orderDTO.OrderRequestDTO;
 import store.ecommerce.dto.orderDTO.OrderResponseDTO;
 import store.ecommerce.dto.orderDTO.OrderUpdateDTO;
@@ -9,13 +8,13 @@ import java.util.List;
 
 public interface OrderService {
 
-    List<OrderResponseDTO> findAll();
+    List<OrderResponseDTO> findAllByUser(String username);
 
-    OrderResponseDTO findById(Long id);
+    OrderResponseDTO findByIdAndUser(Long id, String username);
 
-    OrderResponseDTO create(OrderRequestDTO request);
+    OrderResponseDTO create(OrderRequestDTO request, String username);
 
-    OrderResponseDTO update(Long id, OrderUpdateDTO update);
+    OrderResponseDTO update(Long id, OrderUpdateDTO update, String username);
 
-    void delete(Long id);
+    void delete(Long id, String username);
 }

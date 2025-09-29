@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import store.ecommerce.dto.orderDTO.OrderRequestDTO;
 import store.ecommerce.dto.orderDTO.OrderResponseDTO;
 import store.ecommerce.dto.orderDTO.OrderUpdateDTO;
+import store.ecommerce.enums.OrderStatus;
 import store.ecommerce.exception.BadRequestException;
 import store.ecommerce.exception.ResourceNotFoundException;
 import store.ecommerce.model.Customer;
@@ -13,6 +14,7 @@ import store.ecommerce.model.Order;
 import store.ecommerce.repository.CustomerRepository;
 import store.ecommerce.repository.MerchProductRepository;
 import store.ecommerce.repository.OrderRepository;
+import store.ecommerce.repository.UserRepository;
 import store.ecommerce.service.interfaces.OrderService;
 
 import java.time.LocalDateTime;
@@ -26,26 +28,28 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
     private final MerchProductRepository merchProductRepository;
+    private final UserRepository userRepository;
 
     @Override
-    public List<OrderResponseDTO> findAll() {
-        return orderRepository.findAll()
+    public List<OrderResponseDTO> findAllByUser(String username) {
+        Customer customer = getCustomerFromUser(username);
+        return orderRepository.findByCustomer(customer)
                 .stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public OrderResponseDTO findById(Long id) {
-        Order order = orderRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
+    public OrderResponseDTO findByIdAndUser(Long id, String username) {
+        Customer customer = getCustomerFromUser(username);
+        Order order = orderRepository.findByIdAndCustomer(id, customer)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found for this user"));
         return mapToResponse(order);
     }
 
     @Override
-    public OrderResponseDTO create(OrderRequestDTO request) {
-        Customer customer = customerRepository.findById(request.getCustomerId())
-                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + request.getCustomerId()));
+    public OrderResponseDTO create(OrderRequestDTO request, String username) {
+        Customer customer = getCustomerFromUser(username);
 
         double total = calculateTotal(request.getMerchProductIds());
 
@@ -53,15 +57,18 @@ public class OrderServiceImpl implements OrderService {
         order.setCustomer(customer);
         order.setDate(LocalDateTime.now());
         order.setTotal(total);
+        order.setStatus(OrderStatus.PENDING);
 
         Order saved = orderRepository.save(order);
         return mapToResponse(saved);
     }
 
     @Override
-    public OrderResponseDTO update(Long id, OrderUpdateDTO update) {
-        Order order = orderRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
+    public OrderResponseDTO update(Long id, OrderUpdateDTO update, String username) {
+        Customer customer = getCustomerFromUser(username);
+
+        Order order = orderRepository.findByIdAndCustomer(id, customer)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found for this user"));
 
         double total = calculateTotal(update.getMerchProductIds());
         order.setTotal(total);
@@ -71,12 +78,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void delete(Long id) {
-        Order order = orderRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
+    public void delete(Long id, String username) {
+        Customer customer = getCustomerFromUser(username);
+
+        Order order = orderRepository.findByIdAndCustomer(id, customer)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found for this user"));
+
         orderRepository.delete(order);
     }
 
+    // 🔹 Helpers
     private double calculateTotal(List<Long> productIds) {
         if (productIds == null || productIds.isEmpty()) {
             throw new BadRequestException("Order must contain at least one product");
@@ -93,12 +104,25 @@ public class OrderServiceImpl implements OrderService {
                 .sum();
     }
 
+    private Customer getCustomerFromUser(String username) {
+        return userRepository.findByUsername(username)
+                .flatMap(user -> customerRepository.findById(user.getId()))
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found for user: " + username));
+    }
+
     private OrderResponseDTO mapToResponse(Order order) {
         OrderResponseDTO dto = new OrderResponseDTO();
         dto.setId(order.getId());
         dto.setCustomerId(order.getCustomer().getId());
         dto.setDate(order.getDate());
         dto.setTotal(order.getTotal());
+        dto.setMerchProductIds(
+                order.getOrderProducts() != null
+                        ? order.getOrderProducts().stream()
+                        .map(op -> op.getMerchProduct().getId())
+                        .collect(Collectors.toList())
+                        : List.of()
+        );
         return dto;
     }
 }
