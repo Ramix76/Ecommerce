@@ -1,19 +1,19 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(localStorage.getItem("token") || null);
-  const [username, setUsername] = useState(localStorage.getItem("username") || null);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [username, setUsername] = useState(localStorage.getItem("username"));
   const navigate = useNavigate();
 
-  // Guardar token y username en localStorage
   const login = (token, username) => {
     localStorage.setItem("token", token);
     localStorage.setItem("username", username);
     setToken(token);
     setUsername(username);
+    navigate("/");
   };
 
   const logout = () => {
@@ -24,7 +24,9 @@ export function AuthProvider({ children }) {
     navigate("/login");
   };
 
-  const value = { token, username, login, logout };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ token, username, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
