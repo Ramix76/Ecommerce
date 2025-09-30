@@ -4,6 +4,7 @@ import { CartProvider } from "./context/CartContext";
 import Navbar from "./components/Navbar";
 
 import Login from "./pages/Login/Login";
+import Signup from "./pages/Signup/Signup";
 import Orders from "./pages/Orders/Orders";
 import Customers from "./pages/Customers/Customers";
 import NotFound from "./pages/NotFound/NotFound";
@@ -23,6 +24,7 @@ function App() {
             {/* Public */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
 
             {/* Products */}
             <Route path="/products/manga" element={<Manga />} />

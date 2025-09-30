@@ -1,12 +1,12 @@
 -- =========================
--- USUARIOS
+-- USERS
 -- =========================
-INSERT INTO users (username, password, role) VALUES
-                                                 ('admin', '$2a$10$JjtkBuNUzgcf3uVhjeuKAe.MhaKPUwTjw/2VAf4ttefRueP4iKErC', 'ROLE_ADMIN'),
-                                                 ('mangafan', '$2a$10$D.nsTpdiOMSfswYDVdcwtOEhb0im2RpUwMZHxs7NBaaWvp2Pd2CPS', 'ROLE_USER');
+INSERT INTO users (username, email, password, role) VALUES
+                                                        ('admin', 'admin@example.com', '$2a$10$JjtkBuNUzgcf3uVhjeuKAe.MhaKPUwTjw/2VAf4ttefRueP4iKErC', 'ROLE_ADMIN'),
+                                                        ('mangafan', 'mangafan@example.com', '$2a$10$D.nsTpdiOMSfswYDVdcwtOEhb0im2RpUwMZHxs7NBaaWvp2Pd2CPS', 'ROLE_USER');
 
 -- =========================
--- MERCH_PRODUCTS (tabla base)
+-- MERCH_PRODUCTS (base table)
 -- =========================
 INSERT INTO merch_products (id, name, price, description) VALUES
                                                               (1, 'Naruto Vol.1', 9.99, 'First volume of the Naruto manga'),
@@ -17,34 +17,34 @@ INSERT INTO merch_products (id, name, price, description) VALUES
                                                               (6, 'One Piece T-Shirt', 19.99, 'T-shirt with One Piece print');
 
 -- =========================
--- MANGA_BOOKS (subtabla)
+-- MANGA_BOOKS (subtable)
 -- =========================
 INSERT INTO manga_books (id, author, volume_number, publisher) VALUES
                                                                    (1, 'Masashi Kishimoto', 1, 'Shonen Jump'),
                                                                    (2, 'Eiichiro Oda', 1, 'Shonen Jump');
 
 -- =========================
--- FIGURES (subtabla)
+-- FIGURES (subtable)
 -- =========================
 INSERT INTO figures (id, brand, character_name, scale) VALUES
                                                            (3, 'Bandai', 'Goku', '1/8'),
                                                            (4, 'Banpresto', 'Naruto Uzumaki', '1/10');
 
 -- =========================
--- APPARELS (subtabla)
+-- APPARELS (subtable)
 -- =========================
 INSERT INTO apparels (id, size, color, type) VALUES
                                                  (5, 'M', 'Black', 'Hoodie'),
                                                  (6, 'L', 'White', 'T-Shirt');
 
 -- =========================
--- CLIENTES
+-- CUSTOMERS
 -- =========================
 INSERT INTO customers (id, name, email, user_id) VALUES
     (1, 'Manga Fan', 'mangafan@example.com', 2);
 
 -- =========================
--- PEDIDOS
+-- ORDERS
 -- =========================
 INSERT INTO orders (id, date, total, status, customer_id) VALUES
     (1, NOW(), 49.97, 'PENDING', 1);
