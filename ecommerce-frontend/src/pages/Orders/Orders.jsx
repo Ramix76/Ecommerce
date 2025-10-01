@@ -5,8 +5,10 @@ import api from "../../api/api";
 
 export default function Orders() {
   const { cart, clearCart, removeFromCart } = useContext(CartContext);
-  const { token } = useContext(AuthContext);
+  const { token, username } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [orderId, setOrderId] = useState(null);
 
   const total = cart.reduce((sum, p) => sum + p.price, 0);
 
@@ -18,19 +20,27 @@ export default function Orders() {
 
     setLoading(true);
     try {
-      const merchProductIds = cart.map(p => p.id);
-      const res = await api.post("/orders", { merchProductIds }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      alert("Order confirmed! ID: " + res.data.id);
+      const merchProductIds = cart.map((p) => p.id);
+      const quantities = cart.map(() => 1); // 1 por producto
+
+      const res = await api.post(
+        "/orders",
+        { merchProductIds, quantities },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setOrderId(res.data.id);
+      setShowModal(true);
       clearCart();
     } catch (err) {
-      console.error(err);
-      alert("Failed to confirm order.");
+      console.error("Failed to confirm order:", err.response || err);
+      alert("Failed to confirm order. Make sure your user has a Customer associated.");
     } finally {
       setLoading(false);
     }
   };
+
+  const closeModal = () => setShowModal(false);
 
   return (
     <div
@@ -62,10 +72,16 @@ export default function Orders() {
                 </li>
               ))}
             </ul>
-            <p><strong>Total: ${total.toFixed(2)}</strong></p>
+            <p>
+              <strong>Total: ${total.toFixed(2)}</strong>
+            </p>
           </>
         )}
-        <button onClick={handleConfirmOrder} disabled={loading || cart.length === 0} style={{ marginTop: "10px" }}>
+        <button
+          onClick={handleConfirmOrder}
+          disabled={loading || cart.length === 0}
+          style={{ marginTop: "10px" }}
+        >
           {loading ? "Processing..." : "Confirm Order"}
         </button>
         {cart.length > 0 && (
@@ -78,6 +94,60 @@ export default function Orders() {
           </button>
         )}
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0,0,0,0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+          onClick={closeModal}
+        >
+          <div
+            style={{
+              backgroundColor: "#fff",
+              color: "#333",
+              padding: "30px 20px",
+              borderRadius: "10px",
+              maxWidth: "400px",
+              width: "90%",
+              textAlign: "center",
+              boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 style={{ marginBottom: "15px" }}>
+              Thank you for your purchase, {username}!
+            </h2>
+            <p style={{ marginBottom: "10px" }}>
+              Your order has been successfully placed.
+            </p>
+            <p style={{ marginBottom: "15px" }}>Order ID: {orderId}</p>
+            <button
+              onClick={closeModal}
+              style={{
+                padding: "10px 20px",
+                backgroundColor: "#007bff",
+                color: "#fff",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

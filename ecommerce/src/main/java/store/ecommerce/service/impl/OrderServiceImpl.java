@@ -106,7 +106,7 @@ public class OrderServiceImpl implements OrderService {
 
     private Customer getCustomerFromUser(String username) {
         return userRepository.findByUsername(username)
-                .flatMap(user -> customerRepository.findById(user.getId()))
+                .flatMap(user -> customerRepository.findByUserId(user.getId()))
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not found for user: " + username));
     }
 

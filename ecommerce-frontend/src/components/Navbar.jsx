@@ -32,7 +32,7 @@ export default function Navbar() {
         justifyContent: "space-between",
         padding: "10px 20px",
         borderBottom: "1px solid #ccc",
-        backgroundColor: "#000", // <-- Navbar opaco
+        backgroundColor: "#000",
         height: "60px",
         boxSizing: "border-box"
       }}
@@ -81,7 +81,6 @@ export default function Navbar() {
       </nav>
 
       <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-        {/* Carrito */}
         {username && (
           <Link
             to="/orders"
@@ -124,9 +123,13 @@ export default function Navbar() {
                 border: "none",
                 borderRadius: "5px",
                 backgroundColor: "#00ffff",
+                color: "#1a1a1a", // texto gris oscuro
                 cursor: "pointer",
-                fontWeight: "bold"
+                fontWeight: "bold",
+                transition: "background-color 0.3s"
               }}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = "#00e5e5")}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = "#00ffff")}
             >
               Logout
             </button>
