@@ -17,14 +17,22 @@ export default function ProductCard({ product }) {
   return (
     <div
       style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
         border: "1px solid #ccc",
+        borderRadius: "8px",
         padding: "10px",
         margin: "10px",
-        width: "200px"
+        width: "200px",
+        minHeight: "250px",
+        boxSizing: "border-box",
       }}
     >
-      <h3>{product.name || product.title}</h3>
-      {product.price && <p>Price: ${product.price.toFixed(2)}</p>}
+      <div>
+        <h3>{product.name || product.title}</h3>
+        {product.price && <p>Price: ${product.price.toFixed(2)}</p>}
+      </div>
       <button onClick={handleAddToCart}>Add to Order</button>
     </div>
   );

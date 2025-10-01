@@ -13,7 +13,7 @@ export default function Apparel() {
         setApparel(res.data);
       } catch (err) {
         console.error(err);
-        alert("Error al cargar apparel");
+        alert("Error loading apparel");
       } finally {
         setLoading(false);
       }
@@ -21,13 +21,33 @@ export default function Apparel() {
     fetchApparel();
   }, []);
 
-  if (loading) return <p>Cargando apparel...</p>;
+  if (loading) return <p>Loading apparel...</p>;
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
-      {apparel.map(a => (
-        <ProductCard key={a.id} product={a} />
-      ))}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        width: "100vw",
+        paddingTop: "80px",
+        paddingLeft: "20px",
+        paddingRight: "20px",
+        boxSizing: "border-box",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "20px",
+          justifyContent: "center",
+          maxWidth: "1000px",
+        }}
+      >
+        {apparel.map((a) => (
+          <ProductCard key={a.id} product={a} />
+        ))}
+      </div>
     </div>
   );
 }

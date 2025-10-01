@@ -14,6 +14,12 @@ import Figures from "./pages/Products/Figures";
 import Apparel from "./pages/Products/Apparel";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+// 👇 NUEVOS IMPORTS
+import Items from "./pages/Items/Items";
+import ItemDetail from "./pages/Items/ItemDetail";
+import ItemForm from "./pages/Items/ItemForm";
+import CheckConnection from "./components/CheckConnection";
+
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +36,15 @@ function App() {
             <Route path="/products/manga" element={<Manga />} />
             <Route path="/products/figures" element={<Figures />} />
             <Route path="/products/apparel" element={<Apparel />} />
+
+            {/* Items */}
+            <Route path="/items" element={<Items />} />
+            <Route path="/items/new" element={<ItemForm />} />
+            <Route path="/items/edit/:id" element={<ItemForm />} />
+            <Route path="/items/:id" element={<ItemDetail />} />
+
+            {/* Health check */}
+            <Route path="/health" element={<CheckConnection />} />
 
             {/* Protected */}
             <Route

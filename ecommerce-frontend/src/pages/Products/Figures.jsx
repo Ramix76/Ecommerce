@@ -24,10 +24,30 @@ export default function Figures() {
   if (loading) return <p>Loading figures...</p>;
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
-      {figures.map(f => (
-        <ProductCard key={f.id} product={f} />
-      ))}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        width: "100vw",
+        paddingTop: "80px",
+        paddingLeft: "20px",
+        paddingRight: "20px",
+        boxSizing: "border-box",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "20px",
+          justifyContent: "center",
+          maxWidth: "1000px",
+        }}
+      >
+        {figures.map((f) => (
+          <ProductCard key={f.id} product={f} />
+        ))}
+      </div>
     </div>
   );
 }

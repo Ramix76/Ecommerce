@@ -32,12 +32,11 @@ export default function Navbar() {
         justifyContent: "space-between",
         padding: "10px 20px",
         borderBottom: "1px solid #ccc",
-        backgroundColor: "inherit",
+        backgroundColor: "#000", // <-- Navbar opaco
         height: "60px",
         boxSizing: "border-box"
       }}
     >
-      {/* Logo */}
       <div style={{ fontWeight: "bold", fontSize: "1.5rem" }}>
         <Link
           to="/"
@@ -49,7 +48,6 @@ export default function Navbar() {
         </Link>
       </div>
 
-      {/* Centro: Productos */}
       <nav style={{ display: "flex", gap: "20px", alignItems: "center" }}>
         {["manga", "figures", "apparel"].map((item) => (
           <Link
@@ -62,9 +60,26 @@ export default function Navbar() {
             {item.charAt(0).toUpperCase() + item.slice(1)}
           </Link>
         ))}
+
+        <Link
+          to="/items"
+          style={linkStyle}
+          onMouseEnter={(e) => Object.assign(e.target.style, linkHoverStyle)}
+          onMouseLeave={(e) => Object.assign(e.target.style, linkStyle)}
+        >
+          Items
+        </Link>
+
+        <Link
+          to="/health"
+          style={linkStyle}
+          onMouseEnter={(e) => Object.assign(e.target.style, linkHoverStyle)}
+          onMouseLeave={(e) => Object.assign(e.target.style, linkStyle)}
+        >
+          Health
+        </Link>
       </nav>
 
-      {/* Derecha: Carrito + Usuario */}
       <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
         {/* Carrito */}
         {username && (
@@ -99,7 +114,6 @@ export default function Navbar() {
           </Link>
         )}
 
-        {/* Usuario */}
         {username ? (
           <>
             <span style={{ color: "white" }}>Hello, {username}</span>
