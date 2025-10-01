@@ -41,6 +41,6 @@ public class RegisterServiceImpl implements RegisterService {
         User saved = userRepository.save(user);
         String token = jwtTokenProvider.generateToken(saved.getUsername());
 
-        return new RegisterResponseDTO(saved.getUsername(), token, "Bearer");
+        return new RegisterResponseDTO(saved.getUsername(), token, "Bearer", saved.getRole());
     }
 }

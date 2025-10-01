@@ -36,7 +36,8 @@ public class UserServiceImpl implements UserService {
         return new AuthResponseDTO(
                 user.getUsername(),
                 token,
-                "Bearer"
+                "Bearer",
+                user.getRole()
         );
     }
 
@@ -56,6 +57,6 @@ public class UserServiceImpl implements UserService {
 
         String token = jwtTokenProvider.generateToken(saved.getUsername());
 
-        return new AuthResponseDTO(saved.getUsername(), token, "Bearer");
+        return new AuthResponseDTO(saved.getUsername(), token, "Bearer", saved.getRole());
     }
 }

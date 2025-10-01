@@ -1,7 +1,10 @@
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function ItemMenu({ setMode }) {
   const navigate = useNavigate();
+  const { role } = useContext(AuthContext);
 
   return (
     <div
@@ -30,7 +33,11 @@ export default function ItemMenu({ setMode }) {
         >
           <button onClick={() => setMode("search")}>Search Items</button>
           <button onClick={() => setMode("list")}>Show All Items</button>
-          <button onClick={() => navigate("/items/new")}>Create New Item</button>
+
+          {/* Only admins see this button */}
+          {role === "ROLE_ADMIN" && (
+            <button onClick={() => navigate("/items/new")}>Create New Item</button>
+          )}
         </div>
       </div>
     </div>

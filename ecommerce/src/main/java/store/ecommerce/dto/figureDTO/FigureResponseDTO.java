@@ -11,4 +11,5 @@ public class FigureResponseDTO {
     private String brand;
     private String character;
     private String scale;
+    private String type;
 }

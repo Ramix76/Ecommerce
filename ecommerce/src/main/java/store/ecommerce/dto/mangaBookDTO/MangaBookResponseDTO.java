@@ -11,4 +11,5 @@ public class MangaBookResponseDTO {
     private String author;
     private Integer volumeNumber;
     private String publisher;
+    private String type;
 }

@@ -87,6 +87,7 @@ public class MerchProductServiceImpl implements MerchProductService {
         dto.setName(product.getName());
         dto.setPrice(product.getPrice());
         dto.setDescription(product.getDescription());
+        dto.setType("merch");
         return dto;
     }
 
@@ -151,6 +152,7 @@ public class MerchProductServiceImpl implements MerchProductService {
         dto.setAuthor(book.getAuthor());
         dto.setVolumeNumber(book.getVolumeNumber());
         dto.setPublisher(book.getPublisher());
+        dto.setType("manga");
         return dto;
     }
 
@@ -215,6 +217,7 @@ public class MerchProductServiceImpl implements MerchProductService {
         dto.setBrand(figure.getBrand());
         dto.setCharacter(figure.getCharacter());
         dto.setScale(figure.getScale());
+        dto.setType("figure");
         return dto;
     }
 
@@ -278,7 +281,7 @@ public class MerchProductServiceImpl implements MerchProductService {
         dto.setDescription(apparel.getDescription());
         dto.setSize(apparel.getSize());
         dto.setColor(apparel.getColor());
-        dto.setType(apparel.getType());
+        dto.setType("apparel");
         return dto;
     }
 

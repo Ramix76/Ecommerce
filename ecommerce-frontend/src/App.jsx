@@ -1,5 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, AuthContext } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import Navbar from "./components/Navbar";
 
@@ -14,11 +14,23 @@ import Figures from "./pages/Products/Figures";
 import Apparel from "./pages/Products/Apparel";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-// 👇 NUEVOS IMPORTS
+// Items pages
 import Items from "./pages/Items/Items";
 import ItemDetail from "./pages/Items/ItemDetail";
 import ItemForm from "./pages/Items/ItemForm";
+
+// Utility
 import CheckConnection from "./components/CheckConnection";
+import { useContext } from "react";
+
+// Role-protected route
+function RoleProtectedRoute({ children, role }) {
+  const { role: userRole } = useContext(AuthContext);
+  if (userRole !== role) {
+    return <Navigate to="/items" replace />;
+  }
+  return children;
+}
 
 function App() {
   return (
@@ -27,26 +39,40 @@ function App() {
         <CartProvider>
           <Navbar />
           <Routes>
-            {/* Public */}
+            {/* Public pages */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
 
-            {/* Products */}
+            {/* Products pages */}
             <Route path="/products/manga" element={<Manga />} />
             <Route path="/products/figures" element={<Figures />} />
             <Route path="/products/apparel" element={<Apparel />} />
 
-            {/* Items */}
+            {/* Items pages */}
             <Route path="/items" element={<Items />} />
-            <Route path="/items/new" element={<ItemForm />} />
-            <Route path="/items/edit/:id" element={<ItemForm />} />
+            <Route
+              path="/items/new"
+              element={
+                <RoleProtectedRoute role="ROLE_ADMIN">
+                  <ItemForm />
+                </RoleProtectedRoute>
+              }
+            />
+            <Route
+              path="/items/edit/:id"
+              element={
+                <RoleProtectedRoute role="ROLE_ADMIN">
+                  <ItemForm />
+                </RoleProtectedRoute>
+              }
+            />
             <Route path="/items/:id" element={<ItemDetail />} />
 
             {/* Health check */}
             <Route path="/health" element={<CheckConnection />} />
 
-            {/* Protected */}
+            {/* Protected pages */}
             <Route
               path="/orders"
               element={
@@ -64,7 +90,7 @@ function App() {
               }
             />
 
-            {/* 404 */}
+            {/* 404 page */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </CartProvider>

@@ -28,7 +28,7 @@ public class MerchProductController {
 
     private final MerchProductService merchProductService;
 
-    // ----------------- GENERAL MERCHPRODUCT -----------------
+    // ----------------- GENERIC MERCHPRODUCT -----------------
     @GetMapping
     @Operation(summary = "Get all merch products")
     public ResponseEntity<List<MerchProductResponseDTO>> getAllProducts() {
@@ -39,6 +39,13 @@ public class MerchProductController {
     @Operation(summary = "Get a merch product by ID")
     public ResponseEntity<MerchProductResponseDTO> getProductById(@PathVariable Long id) {
         return ResponseEntity.ok(merchProductService.findById(id));
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a generic merch product by ID")
+    public ResponseEntity<Void> deleteMerchProduct(@PathVariable Long id) {
+        merchProductService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     // ----------------- MANGA BOOK -----------------
