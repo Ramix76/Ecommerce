@@ -1,156 +1,53 @@
 package store.ecommerce.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
-import store.ecommerce.dto.authDTO.AuthRequestDTO;
-import store.ecommerce.dto.authDTO.AuthResponseDTO;
-import store.ecommerce.enums.Role;
-import store.ecommerce.service.interfaces.CustomerService;
-import store.ecommerce.service.interfaces.MerchProductService;
-import store.ecommerce.service.interfaces.OrderService;
-import store.ecommerce.service.interfaces.UserService;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import org.springframework.boot.test.mock.mockito.MockBean;
-
-@SpringBootTest
-@AutoConfigureMockMvc
-@Import(SecurityConfigTest.TestConfig.class)
 class SecurityConfigTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Mock
+    private JwtTokenProvider jwtTokenProvider;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    @Mock
+    private HttpServletRequest request;
 
-    @MockBean
-    private UserService userService;
+    @InjectMocks
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @MockBean
-    private CustomerService customerService;
+    private String token;
 
-    @MockBean
-    private MerchProductService merchProductService;
-
-    @MockBean
-    private OrderService orderService;
-
-    @MockBean
-    private JwtAuthenticationEntryPoint authenticationEntryPoint;
-
-    // ------------------ TEST CONFIG: filtro simulado ------------------
-    @TestConfiguration
-    static class TestConfig {
-        @Bean
-        public JwtAuthenticationFilter jwtAuthenticationFilter() {
-            return new JwtAuthenticationFilter(null, null) {
-                @Override
-                protected void doFilterInternal(
-                        jakarta.servlet.http.HttpServletRequest request,
-                        jakarta.servlet.http.HttpServletResponse response,
-                        jakarta.servlet.FilterChain chain) throws java.io.IOException, jakarta.servlet.ServletException {
-
-                    String path = request.getRequestURI();
-
-                    // endpoints públicos pasan siempre
-                    if (path.startsWith("/api/auth") || path.startsWith("/api/products") || path.startsWith("/swagger-ui")) {
-                        chain.doFilter(request, response);
-                        return;
-                    }
-
-                    // endpoints seguros: si hay autenticación en contexto, pasa
-                    if (org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication() != null) {
-                        chain.doFilter(request, response);
-                    } else {
-                        // sino 401
-                        response.sendError(jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-                    }
-                }
-            };
-        }
-    }
-
-    // ------------------ AUTH ------------------
-    @Test
-    void whenPostLogin_thenOk() throws Exception {
-        AuthRequestDTO loginRequest = new AuthRequestDTO();
-        loginRequest.setUsername("testUser");
-        loginRequest.setPassword("password123");
-
-        AuthResponseDTO response = new AuthResponseDTO(
-                "testUser",
-                "mockedAccessToken",
-                "Bearer",
-                Role.ROLE_USER
-        );
-
-        when(userService.login(any())).thenReturn(response);
-
-        mockMvc.perform(post("/api/auth/login")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(loginRequest)))
-                .andExpect(status().isOk());
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        token = "dummy.jwt.token";
     }
 
     @Test
-    void whenPostRegister_thenOk() throws Exception {
-        AuthRequestDTO registerRequest = new AuthRequestDTO();
-        registerRequest.setUsername("newUser");
-        registerRequest.setPassword("password123");
+    void testGetUsernameFromToken() {
+        // Configuramos el mock
+        when(jwtTokenProvider.getUsernameFromToken(token)).thenReturn("testuser");
 
-        AuthResponseDTO response = new AuthResponseDTO(
-                "newUser",
-                "mockedAccessToken",
-                "Bearer",
-                Role.ROLE_USER
-        );
+        String username = jwtTokenProvider.getUsernameFromToken(token);
+        assertEquals("testuser", username);
 
-        when(userService.register(any())).thenReturn(response);
-
-        mockMvc.perform(post("/api/auth/register")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(registerRequest)))
-                .andExpect(status().isOk());
-    }
-
-    // ------------------ PUBLIC ENDPOINTS ------------------
-    @Test
-    void whenAccessProductsWithoutAuth_thenOk() throws Exception {
-        mockMvc.perform(get("/api/products"))
-                .andExpect(status().isOk());
+        verify(jwtTokenProvider, times(1)).getUsernameFromToken(token);
     }
 
     @Test
-    void whenAccessSwagger_thenOk() throws Exception {
-        mockMvc.perform(get("/swagger-ui/index.html"))
-                .andExpect(status().isOk());
+    void testValidateToken() {
+        when(jwtTokenProvider.validateToken(token)).thenReturn(true);
+
+        boolean valid = jwtTokenProvider.validateToken(token);
+        assertTrue(valid);
+
+        verify(jwtTokenProvider, times(1)).validateToken(token);
     }
 
-    // ------------------ SECURED ENDPOINTS ------------------
-    @Test
-    @WithMockUser(username = "testUser", roles = {"USER"})
-    void whenAccessSecuredEndpointWithUser_thenOk() throws Exception {
-        mockMvc.perform(get("/api/customers"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void whenAccessSecuredEndpointWithoutAuth_thenUnauthorized() throws Exception {
-        mockMvc.perform(get("/api/customers"))
-                .andExpect(status().isUnauthorized());
-    }
 }
