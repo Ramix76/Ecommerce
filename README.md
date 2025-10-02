@@ -13,34 +13,32 @@
 ![JUnit](https://img.shields.io/badge/junit-yes-red)
 ![Mockito](https://img.shields.io/badge/mockito-yes-red)
 ![Spring Security Test](https://img.shields.io/badge/springsecuritytest-yes-red)
+![React](https://img.shields.io/badge/react-19.1.1-blue)
+![Vite](https://img.shields.io/badge/vite-7.1.7-lightblue)
 ![License](https://img.shields.io/github/license/Ramix76/Ecommerce)
 ![Swagger](https://img.shields.io/badge/swagger-OpenAPI-orange)
-![Issues](https://img.shields.io/github/issues/Ramix76/Ecommerce)
-![ChatGPT](https://img.shields.io/badge/ai-chatgpt-lightblue)
-![Swagger](https://img.shields.io/badge/swagger-OpenAPI-orange)
+![Docker](https://img.shields.io/badge/docker-28.4.0-blue)
+![Make](https://img.shields.io/badge/make-yes-green)
 
 ## Table of Contents
 1. [Description](#description)
 2. [Project Structure](#project-structure)
-3. [Technology Stack](#technology-stack-extracted-from-pomxml)
     - [Backend](#backend)
-    - [Persistence](#persistence)
-    - [Build Tool](#build-tool)
-    - [JWT](#jwt)
-    - [Lombok](#lombok)
-    - [Testing](#testing)
-    - [Documentation](#documentation)
+    - [Frontend](#frontend)
+3. [Technology Stack](#technology-stack-extracted-from-pomxml)
 4. [Data Initialization](#data-initialization)
-5. [Testing](#testing-1)
-6. [How to Run](#how-to-run)
-7. [Security](#security)
+5. [Deployment](#deployment)
+6. [Testing](#testing)
+7. [Deployment & How to Run](#deployment--how-to-run)
+8. [Application Features](#application-features)
+9. [Security](#security)
     - [Security and Handling of the JWT Secret Key](#security-and-handling-of-the-jwt-secret-key)
     - [Recommended Practice in Professional Environments](#recommended-practice-in-professional-environments)
-8. [API Endpoints](#api-endpoints)
+10. [API Endpoints](#api-endpoints)
     - [Authentication](#authentication)
     - [Products](#products)
     - [Orders](#orders)
-9. [PUML Diagrams](#puml-diagrams)
+11. [PUML Diagrams](#puml-diagrams)
     - [Class Diagram](#class-diagram)
     - [Flux Diagram](#flux-diagram)
     - [Flow Chart](#floow-chart)
@@ -50,154 +48,210 @@
 
 ## Description
 
-This is a **Spring Boot E-commerce application** for managing a manga store. It includes authentication, role-based authorization, CRUD operations for products, customers, and orders, and JWT-based security.
+This is a **Spring Boot E-commerce application** for managing a manga store. It includes authentication, role-based authorization, CRUD operations for products, customers, and orders, JWT-based security, and a React frontend.
 
-The main functionalities include:
+Main functionalities:
 
 - User registration and login with JWT authentication.
 - Management of Manga Books, Figures, and Apparel.
 - Creation of customer orders with order products.
 - Role-based access control (`ROLE_USER`, `ROLE_ADMIN`).
+- Admin panel with product edit and delete functionalities.
+- Shopping cart for registered users.
+- Product search and listing.
+- Database connectivity check button.
 - REST API documented with Swagger.
-  
+
 [⬆️ Volver al inicio](#table-of-contents)
 
 ---
 
 ## Project Structure
 
-```text
-├── HELP.md
-├── README.md
-└── ecommerce
-    ├── docs
-    │   ├── ClassDiagram.puml
-    │   ├── FluxDiagram.puml
-    │   └── diagrams
-    │       ├── ClassDiagram.png
-    │       ├── Ecommerce.png
-    │       └── FluxDiagram.png
-    ├── mvnw
-    ├── mvnw.cmd
-    ├── pom.xml
-    └── src
-        ├── main
-        │   ├── java
-        │   │   └── store
-        │   │       └── ecommerce
-        │   │           ├── EcommerceApplication.java
-        │   │           ├── config
-        │   │           │   ├── DataInitializer.java
-        │   │           │   └── OpenAPIConfig.java
-        │   │           ├── controller
-        │   │           │   ├── AuthController.java
-        │   │           │   ├── CustomerController.java
-        │   │           │   ├── MerchProductController.java
-        │   │           │   └── OrderController.java
-        │   │           ├── dto
-        │   │           │   ├── apparelDTO
-        │   │           │   │   ├── ApparelRequestDTO.java
-        │   │           │   │   ├── ApparelResponseDTO.java
-        │   │           │   │   └── ApparelUpdateDTO.java
-        │   │           │   ├── authDTO
-        │   │           │   │   ├── AuthRequestDTO.java
-        │   │           │   │   └── AuthResponseDTO.java
-        │   │           │   ├── customerDTO
-        │   │           │   │   ├── CustomerRequestDTO.java
-        │   │           │   │   ├── CustomerResponseDTO.java
-        │   │           │   │   └── CustomerUpdateDTO.java
-        │   │           │   ├── figureDTO
-        │   │           │   │   ├── FigureRequestDTO.java
-        │   │           │   │   ├── FigureResponseDTO.java
-        │   │           │   │   └── FigureUpdateDTO.java
-        │   │           │   ├── mangaBookDTO
-        │   │           │   │   ├── MangaBookRequestDTO.java
-        │   │           │   │   ├── MangaBookResponseDTO.java
-        │   │           │   │   └── MangaBookUpdateDTO.java
-        │   │           │   ├── merchProductDTO
-        │   │           │   │   ├── MerchProductRequestDTO.java
-        │   │           │   │   ├── MerchProductResponseDTO.java
-        │   │           │   │   └── MerchProductUpdateDTO.java
-        │   │           │   ├── orderDTO
-        │   │           │   │   ├── OrderRequestDTO.java
-        │   │           │   │   ├── OrderResponseDTO.java
-        │   │           │   │   └── OrderUpdateDTO.java
-        │   │           │   └── orderProductDTO
-        │   │           │       ├── OrderProductRequestDTO.java
-        │   │           │       ├── OrderProductResponseDTO.java
-        │   │           │       └── OrderProductUpdateDTO.java
-        │   │           ├── enums
-        │   │           │   ├── OrderStatus.java
-        │   │           │   └── Role.java
-        │   │           ├── exception
-        │   │           │   ├── BadRequestException.java
-        │   │           │   ├── ExceptionResponseHelper.java
-        │   │           │   ├── GlobalExceptionHandler.java
-        │   │           │   ├── InvalidCredentialsException.java
-        │   │           │   ├── ResourceNotFoundException.java
-        │   │           │   └── UsernameAlreadyExistsException.java
-        │   │           ├── model
-        │   │           │   ├── Apparel.java
-        │   │           │   ├── Customer.java
-        │   │           │   ├── Figure.java
-        │   │           │   ├── MangaBook.java
-        │   │           │   ├── MerchProduct.java
-        │   │           │   ├── Order.java
-        │   │           │   ├── OrderProduct.java
-        │   │           │   └── User.java
-        │   │           ├── repository
-        │   │           │   ├── ApparelRepository.java
-        │   │           │   ├── CustomerRepository.java
-        │   │           │   ├── FigureRepository.java
-        │   │           │   ├── MangaBookRepository.java
-        │   │           │   ├── MerchProductRepository.java
-        │   │           │   ├── OrderProductRepository.java
-        │   │           │   ├── OrderRepository.java
-        │   │           │   └── UserRepository.java
-        │   │           ├── security
-        │   │           │   ├── CustomUserDetailsService.java
-        │   │           │   ├── JwtAuthenticationEntryPoint.java
-        │   │           │   ├── JwtAuthenticationFilter.java
-        │   │           │   ├── JwtTokenProvider.java
-        │   │           │   └── SecurityConfig.java
-        │   │           └── service
-        │   │               ├── impl
-        │   │               │   ├── CustomerServiceImpl.java
-        │   │               │   ├── MerchProductServiceImpl.java
-        │   │               │   ├── OrderServiceImpl.java
-        │   │               │   └── UserServiceImpl.java
-        │   │               └── interfaces
-        │   │                   ├── CustomerService.java
-        │   │                   ├── MerchProductService.java
-        │   │                   ├── OrderService.java
-        │   │                   └── UserService.java
-        │   └── resources
-        │       └── application.properties
-        └── test
-            └── java
-                └── store
-                    └── ecommerce
-                        ├── EcommerceApplicationTests.java
-                        ├── controller
-                        │   ├── AuthControllerTest.java
-                        │   ├── CustomerControllerTest.java
-                        │   ├── MerchProductControllerTest.java
-                        │   └── OrderControllerTest.java
-                        ├── security
-                        │   ├── CustomUserDetailsServiceTest.java
-                        │   ├── JwtAuthenticationEntryPointTest.java
-                        │   ├── JwtAuthenticationFilterTest.java
-                        │   ├── JwtTokenProviderTest.java
-                        │   └── SecurityConfigTest.java
-                        └── service
-                            └── impl
-                                ├── CustomerServiceImplTest.java
-                                ├── MerchProductServiceImplTest.java
-                                ├── OrderServiceImplTest.java
-                                └── UserServiceImplTest.java
+### Backend
 
+```text
+├── docs
+│   ├── ClassDiagram.puml
+│   ├── diagrams
+│   │   ├── ClassDiagram.png
+│   │   ├── Ecommerce.png
+│   │   ├── flowchart.png
+│   │   └── FluxDiagram.png
+│   └── FluxDiagram.puml
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── store
+│   │   │       └── ecommerce
+│   │   │           ├── config
+│   │   │           │   ├── DataInitializer.java
+│   │   │           │   └── OpenAPIConfig.java
+│   │   │           ├── controller
+│   │   │           │   ├── AuthController.java
+│   │   │           │   ├── CustomerController.java
+│   │   │           │   ├── HealthController.java
+│   │   │           │   ├── MerchProductController.java
+│   │   │           │   ├── OrderController.java
+│   │   │           │   └── RegisterController.java
+│   │   │           ├── dto
+│   │   │           │   ├── apparelDTO
+│   │   │           │   │   ├── ApparelRequestDTO.java
+│   │   │           │   │   ├── ApparelResponseDTO.java
+│   │   │           │   │   └── ApparelUpdateDTO.java
+│   │   │           │   ├── authDTO
+│   │   │           │   │   ├── AuthRequestDTO.java
+│   │   │           │   │   └── AuthResponseDTO.java
+│   │   │           │   ├── customerDTO
+│   │   │           │   │   ├── CustomerRequestDTO.java
+│   │   │           │   │   ├── CustomerResponseDTO.java
+│   │   │           │   │   └── CustomerUpdateDTO.java
+│   │   │           │   ├── figureDTO
+│   │   │           │   │   ├── FigureRequestDTO.java
+│   │   │           │   │   ├── FigureResponseDTO.java
+│   │   │           │   │   └── FigureUpdateDTO.java
+│   │   │           │   ├── mangaBookDTO
+│   │   │           │   │   ├── MangaBookRequestDTO.java
+│   │   │           │   │   ├── MangaBookResponseDTO.java
+│   │   │           │   │   └── MangaBookUpdateDTO.java
+│   │   │           │   ├── merchProductDTO
+│   │   │           │   │   ├── MerchProductRequestDTO.java
+│   │   │           │   │   ├── MerchProductResponseDTO.java
+│   │   │           │   │   └── MerchProductUpdateDTO.java
+│   │   │           │   ├── orderDTO
+│   │   │           │   │   ├── OrderRequestDTO.java
+│   │   │           │   │   ├── OrderResponseDTO.java
+│   │   │           │   │   └── OrderUpdateDTO.java
+│   │   │           │   ├── orderProductDTO
+│   │   │           │   │   ├── OrderProductRequestDTO.java
+│   │   │           │   │   ├── OrderProductResponseDTO.java
+│   │   │           │   │   └── OrderProductUpdateDTO.java
+│   │   │           │   └── registerDTO
+│   │   │           │       ├── RegisterRequestDTO.java
+│   │   │           │       └── RegisterResponseDTO.java
+│   │   │           ├── EcommerceApplication.java
+│   │   │           ├── enums
+│   │   │           │   ├── OrderStatus.java
+│   │   │           │   └── Role.java
+│   │   │           ├── exception
+│   │   │           │   ├── BadRequestException.java
+│   │   │           │   ├── ExceptionResponseHelper.java
+│   │   │           │   ├── GlobalExceptionHandler.java
+│   │   │           │   ├── InvalidCredentialsException.java
+│   │   │           │   ├── PasswordMismatchException.java
+│   │   │           │   ├── ResourceNotFoundException.java
+│   │   │           │   └── UsernameAlreadyExistsException.java
+│   │   │           ├── model
+│   │   │           │   ├── Apparel.java
+│   │   │           │   ├── Customer.java
+│   │   │           │   ├── Figure.java
+│   │   │           │   ├── MangaBook.java
+│   │   │           │   ├── MerchProduct.java
+│   │   │           │   ├── Order.java
+│   │   │           │   ├── OrderProduct.java
+│   │   │           │   └── User.java
+│   │   │           ├── repository
+│   │   │           │   ├── ApparelRepository.java
+│   │   │           │   ├── CustomerRepository.java
+│   │   │           │   ├── FigureRepository.java
+│   │   │           │   ├── MangaBookRepository.java
+│   │   │           │   ├── MerchProductRepository.java
+│   │   │           │   ├── OrderProductRepository.java
+│   │   │           │   ├── OrderRepository.java
+│   │   │           │   └── UserRepository.java
+│   │   │           ├── security
+│   │   │           │   ├── CustomUserDetailsService.java
+│   │   │           │   ├── JwtAuthenticationEntryPoint.java
+│   │   │           │   ├── JwtAuthenticationFilter.java
+│   │   │           │   ├── JwtTokenProvider.java
+│   │   │           │   └── SecurityConfig.java
+│   │   │           ├── service
+│   │   │           │   ├── impl
+│   │   │           │   │   ├── CustomerServiceImpl.java
+│   │   │           │   │   ├── MerchProductServiceImpl.java
+│   │   │           │   │   ├── OrderServiceImpl.java
+│   │   │           │   │   ├── RegisterServiceImpl.java
+│   │   │           │   │   └── UserServiceImpl.java
+│   │   │           │   └── interfaces
+│   │   │           │       ├── CustomerService.java
+│   │   │           │       ├── MerchProductService.java
+│   │   │           │       ├── OrderService.java
+│   │   │           │       ├── RegisterService.java
+│   │   │           │       └── UserService.java
+│   │   │           └── util
+│   │   │               └── PasswordHashGenerator.java
+│   │   └── resources
+│   │       ├── application.properties
+│   │       └── data.sql
+│   └── test
+│       └── java
+│           └── store
+│               └── ecommerce
+│                   ├── controller
+│                   │   ├── AuthControllerTest.java
+│                   │   ├── CustomerControllerTest.java
+│                   │   ├── MerchProductControllerTest.java
+│                   │   └── OrderControllerTest.java
+│                   ├── EcommerceApplicationTests.java
+│                   ├── security
+│                   │   ├── CustomUserDetailsServiceTest.java
+│                   │   ├── JwtAuthenticationEntryPointTest.java
+│                   │   ├── JwtAuthenticationFilterTest.java
+│                   │   ├── JwtTokenProviderTest.java
+│                   │   └── SecurityConfigTest.java
+│                   └── service
+│                       └── impl
+│                           ├── CustomerServiceImplTest.java
+│                           ├── MerchProductServiceImplTest.java
+│                           ├── OrderServiceImplTest.java
+│                           └── UserServiceImplTest.java
 
 ```
+### Frontend
+
+```text
+├── package-lock.json
+├── package.json
+├── public
+│   ├── assets
+│   │   └── manga-store.jpg
+│   └── vite.svg
+├── README.md
+├── src
+│   ├── api
+│   │   ├── api.js
+│   │   ├── auth.service.js
+│   │   ├── items.service.js
+│   │   └── products.service.js
+│   ├── App.css
+│   ├── App.jsx
+│   ├── assets
+│   │   └── react.svg
+│   ├── components
+│   │   ├── CheckConnection.jsx
+│   │   ├── Navbar.jsx
+│   │   └── ProtectedRoute.jsx
+│   ├── context
+│   │   ├── AuthContext.jsx
+│   │   └── CartContext.jsx
+│   ├── index.css
+│   ├── main.jsx
+│   └── pages
+│       ├── Customers
+│       ├── Home
+│       ├── Items
+│       ├── Login
+│       ├── NotFound
+│       ├── Orders
+│       ├── Products
+│       └── Signup
+└── vite.config.js
+
+```
+
 [⬆️ Volver al inicio](#table-of-contents)
 
 ---
@@ -233,21 +287,53 @@ The main functionalities include:
 - **API Docs:** Swagger (Springdoc OpenAPI)
 - **Version:** 2.8.4
 
+## Frontend
+- **Framework:** React 19.1.1
+- **DOM:** React DOM 19.1.1
+- **Build Tool:** Vite 7.1.7
+
+## Containerization
+- **Docker:** 28.4.0, build d8eb465
+
 [⬆️ Volver al inicio](#table-of-contents)
 
 ---
 
 ## Data Initialization
 
-The `DataInitializer` class loads **sample data** for the application, including:
+Database is initialized via `data.sql` located in `backend/src/main/resources`, which includes:
 
-- **Admin user:** `admin`
-- **Customer user:** `mangafan`
-- **Sample products:**
-    - MangaBooks
-    - Figures
-    - Apparel
-- **Sample order:** for `mangafan`
+- Admin and customer users.
+- Sample products (MangaBooks, Figures, Apparel).
+- Sample orders.
+
+[⬆️ Volver al inicio](#table-of-contents)
+
+---
+
+## Deployment
+
+Deployment is handled with Docker and Make.
+
+Common Makefile commands:
+
+- **Start all services in background:**  
+  `make up`
+
+- **Stop all services:**  
+  `make down`
+
+- **Build images without starting containers:**  
+  `make build`
+
+- **Rebuild and start services:**  
+  `make rebuild`
+
+- **View logs in real time:**  
+  `make logs`
+
+- **Clean volumes, containers, and images:**  
+  `make clean`
 
 [⬆️ Volver al inicio](#table-of-contents)
 
@@ -271,23 +357,58 @@ mvn test
 
 ---
 
-## How to Run
+## Deployment & How to Run
 
-1. **Clone the repository:**
+### Deployment
 
+Deployment is handled with Docker and Make. Available commands:
+
+- **Start all services in background:**
 ```bash
-git clone <https://github.com/Ramix76/Ecommerce>
-cd Ecommerce
+make up
 ```
-2. **Configure MySQL database:**
-Edit `application.properties` and set your database connection details.
-3. **Build and run the application:**
+- **Stop all services:**
 ```bash
-mvn clean install
-mvn spring-boot:run
+make down
 ```
-4. **Access Swagger at:**
-   http://localhost:8081/swagger-ui.html
+- **Build images without starting containers:**
+```bash
+make build
+```
+- **Rebuild and start all services:**
+```bash
+make rebuild
+```
+- **View logs in real time:**
+```bash
+make logs
+```
+- **Clean volumes, containers, and images:**
+```bash
+make clean
+```
+
+### RUN
+
+Backend API accessible at: http://localhost:8080
+
+Swagger UI available at: http://localhost:8080/swagger-ui.html
+
+Frontend accessible at: http://localhost:3000
+
+[⬆️ Volver al inicio](#table-of-contents)
+
+---
+
+## Application Features
+
+- Admin mode with edit and delete product functionalities.
+- Shopping cart available only for registered users.
+- Database connectivity check button.
+- Product search and listing features.
+- Full REST API for authentication, products, and orders.
+- JWT authentication and role-based authorization.
+- Frontend implemented with React + Vite.
 
 [⬆️ Volver al inicio](#table-of-contents)
 
