@@ -360,7 +360,9 @@ make clean
 
 ### RUN
 
-Backend API accessible at: http://localhost:8080
+Backend API accessible at: http://localhost:8080  
+
+⚠️ Note: Direct access will not work because the API is protected with security and will return a **401 Unauthorized** error without proper authentication.
 
 Swagger UI available at: http://localhost:8080/swagger-ui.html
 
