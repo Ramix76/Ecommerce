@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 import store.ecommerce.dto.authDTO.AuthRequestDTO;
 import store.ecommerce.dto.authDTO.AuthResponseDTO;
+import store.ecommerce.enums.Role;
 import store.ecommerce.service.interfaces.UserService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,9 +32,14 @@ class AuthControllerTest {
         // Arrange
         AuthRequestDTO requestDTO = new AuthRequestDTO();
         requestDTO.setUsername("testuser");
-        requestDTO.setPassword("password");
+        requestDTO.setPassword("password123");
 
-        AuthResponseDTO responseDTO = new AuthResponseDTO("testuser", "mockedToken", "mockedRefreshToken");
+        AuthResponseDTO responseDTO = new AuthResponseDTO(
+                "testuser",
+                "mockedAccessToken",
+                "Bearer",
+                Role.ROLE_USER
+        );
 
         when(userService.login(requestDTO)).thenReturn(responseDTO);
 
@@ -43,7 +49,9 @@ class AuthControllerTest {
         // Assert
         assertEquals(200, response.getStatusCodeValue());
         assertEquals("testuser", response.getBody().getUsername());
-        assertEquals("mockedToken", response.getBody().getAccessToken());
+        assertEquals("mockedAccessToken", response.getBody().getAccessToken());
+        assertEquals(Role.ROLE_USER, response.getBody().getRole());
+
         verify(userService, times(1)).login(requestDTO);
     }
 
@@ -52,9 +60,14 @@ class AuthControllerTest {
         // Arrange
         AuthRequestDTO requestDTO = new AuthRequestDTO();
         requestDTO.setUsername("newuser");
-        requestDTO.setPassword("password");
+        requestDTO.setPassword("password123");
 
-        AuthResponseDTO responseDTO = new AuthResponseDTO("newuser", "mockedTokenRegister", "mockedRefreshTokenRegister");
+        AuthResponseDTO responseDTO = new AuthResponseDTO(
+                "newuser",
+                "mockedAccessTokenRegister",
+                "Bearer",
+                Role.ROLE_USER
+        );
 
         when(userService.register(requestDTO)).thenReturn(responseDTO);
 
@@ -64,7 +77,9 @@ class AuthControllerTest {
         // Assert
         assertEquals(200, response.getStatusCodeValue());
         assertEquals("newuser", response.getBody().getUsername());
-        assertEquals("mockedTokenRegister", response.getBody().getAccessToken());
+        assertEquals("mockedAccessTokenRegister", response.getBody().getAccessToken());
+        assertEquals(Role.ROLE_USER, response.getBody().getRole());
+
         verify(userService, times(1)).register(requestDTO);
     }
 }

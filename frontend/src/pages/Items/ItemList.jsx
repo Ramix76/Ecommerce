@@ -14,10 +14,10 @@ function mapItemType(item) {
   if (item.apparel) return "apparel";
   if (item.mangaBook) return "manga";
   if (item.figure) return "figure";
-  return "merch"; // fallback para productos genéricos
+  return "merch";
 }
 
-export function ItemList({ setMode }) {
+export default function ItemList({ setMode }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

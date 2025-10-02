@@ -11,11 +11,11 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
-        <module name="ecommerce" />
+        <module name="ecommerce (1)" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ecommerce (1)" target="17" />
+      <module name="ecommerce" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

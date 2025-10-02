@@ -3,8 +3,8 @@ package store.ecommerce.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -13,7 +13,11 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import store.ecommerce.dto.authDTO.AuthRequestDTO;
 import store.ecommerce.dto.authDTO.AuthResponseDTO;
-import store.ecommerce.service.interfaces.*;
+import store.ecommerce.enums.Role;
+import store.ecommerce.service.interfaces.CustomerService;
+import store.ecommerce.service.interfaces.MerchProductService;
+import store.ecommerce.service.interfaces.OrderService;
+import store.ecommerce.service.interfaces.UserService;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -89,8 +93,9 @@ class SecurityConfigTest {
 
         AuthResponseDTO response = new AuthResponseDTO(
                 "testUser",
-                "password123",
-                "ROLE_USER"
+                "mockedAccessToken",
+                "Bearer",
+                Role.ROLE_USER
         );
 
         when(userService.login(any())).thenReturn(response);
@@ -109,8 +114,9 @@ class SecurityConfigTest {
 
         AuthResponseDTO response = new AuthResponseDTO(
                 "newUser",
-                "password123",
-                "ROLE_USER"
+                "mockedAccessToken",
+                "Bearer",
+                Role.ROLE_USER
         );
 
         when(userService.register(any())).thenReturn(response);
