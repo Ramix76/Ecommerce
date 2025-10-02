@@ -28,16 +28,17 @@
 3. [Technology Stack](#technology-stack-extracted-from-pomxml)
 4. [Data Initialization](#data-initialization)
 5. [Deployment](#deployment)
-6. [Deployment & How to Run](#deployment--how-to-run)
-7. [Application Features](#application-features)
-8. [Security](#security)
+6. [Testing](#testing)
+7. [Deployment & How to Run](#deployment--how-to-run)
+8. [Application Features](#application-features)
+9. [Security](#security)
     - [Security and Handling of the JWT Secret Key](#security-and-handling-of-the-jwt-secret-key)
     - [Recommended Practice in Professional Environments](#recommended-practice-in-professional-environments)
-9. [API Endpoints](#api-endpoints)
+10. [API Endpoints](#api-endpoints)
     - [Authentication](#authentication)
     - [Products](#products)
     - [Orders](#orders)
-10. [PUML Diagrams](#puml-diagrams)
+11. [PUML Diagrams](#puml-diagrams)
     - [Class Diagram](#class-diagram)
     - [UML Diagram](#uml-diagram)
 
@@ -303,34 +304,6 @@ Database is initialized via `data.sql` located in `backend/src/main/resources`, 
 - Admin and customer users.
 - Sample products (MangaBooks, Figures, Apparel).
 - Sample orders.
-
-[⬆️ Volver al inicio](#table-of-contents)
-
----
-
-## Deployment
-
-Deployment is handled with Docker and Make.
-
-Common Makefile commands:
-
-- **Start all services in background:**  
-  `make up`
-
-- **Stop all services:**  
-  `make down`
-
-- **Build images without starting containers:**  
-  `make build`
-
-- **Rebuild and start services:**  
-  `make rebuild`
-
-- **View logs in real time:**  
-  `make logs`
-
-- **Clean volumes, containers, and images:**  
-  `make clean`
 
 [⬆️ Volver al inicio](#table-of-contents)
 
