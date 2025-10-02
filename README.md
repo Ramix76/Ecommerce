@@ -40,8 +40,6 @@
     - [Orders](#orders)
 11. [PUML Diagrams](#puml-diagrams)
     - [Class Diagram](#class-diagram)
-    - [Flux Diagram](#flux-diagram)
-    - [Flow Chart](#floow-chart)
     - [UML Diagram](#uml-diagram)
 
 ---
@@ -473,27 +471,13 @@ security.jwt.secret=${JWT_SECRET}
 ## PUML Diagrams
 
 ### Class Diagram:
-![Class Diagram](ecommerce/docs/diagrams/ClassDiagram.png)
-
-[⬆️ Volver al inicio](#table-of-contents)
-
----
-
-### Flux Diagram:
-![Flux Diagram](ecommerce/docs/diagrams/FluxDiagram.png)
-
-[⬆️ Volver al inicio](#table-of-contents)
-
----
-
-### Floow chart
-![Diagrama UML](ecommerce/docs/diagrams/flowchart.png)
+![Class Diagram](./docs/diagrams/ClassDiagram.png)
 
 [⬆️ Volver al inicio](#table-of-contents)
 
 ---
 
 ### UML Diagram
-![Diagrama UML](ecommerce/docs/diagrams/Ecommerce.png)
+![Diagrama UML](./docs/diagrams/Ecommerce.png)
 
 [⬆️ Volver al inicio](#table-of-contents)
